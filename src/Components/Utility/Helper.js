@@ -1,7 +1,4 @@
 import Swal from "sweetalert2";
-//export var rootUrl = 'https://10.100.17.238/FairEx/api/v1/';
-//export var rootUrl = 'https://10.100.18.166/FairEx/api/v1/';
-//export var rootUrl = 'https://10.100.18.45/FairEx/api/v1/';
 
 export var authUser = JSON.parse(localStorage.getItem("user"));
 
