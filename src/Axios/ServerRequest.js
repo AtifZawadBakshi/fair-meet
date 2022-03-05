@@ -1,5 +1,5 @@
 import API, { URL } from "./Api";
-import * as Helper from "../../src/Components/Utility/Helper";
+import * as Helper from "../Components/Utility/Helper";
 
 /**
  * all Item gets

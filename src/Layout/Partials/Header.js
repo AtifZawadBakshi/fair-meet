@@ -137,8 +137,7 @@ function Header() {
               <ul className="show-notification profile-notification">
                 <li className="waves-effect waves-light">
                   <a href="#!">
-                    {" "}
-                    <i className="ti-settings" /> Settings{" "}
+                    <i className="ti-settings" /> Settings
                   </a>
                 </li>
                 <li className="waves-effect waves-light">

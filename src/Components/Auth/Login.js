@@ -30,33 +30,29 @@ class Login extends Component {
         password: this.state.password,
       })
       .then(function (response) {
+        sessionStorage.setItem("token", response.data.access_token);
+        sessionStorage.setItem("user", JSON.stringify(response.data.user));
         console.log(response);
 
         if (response.data.access_token) {
           localStorage.setItem("user", JSON.stringify(response.data));
           Helper.alertMessage("success", "Login has been successfully!");
-          //let history = useHistory();
           props.history.push("/dashboard");
           window.location.reload();
-          //console.log(this.state.history)
-          //this.state.history.push("/dashboard")
-          // history.push("/dashboard");
         }
+      })
+      .catch(function (error) {
+        Helper.alertMessage("error", "Something went wrong!");
+        console.log(error);
       });
-    // .catch(function (error) {
-    //   Helper.alertMessage("error", "Something went wrong!");
-    //   console.log(error);
-    // });
   }
 
   render() {
     return (
       <section className="login-block">
-        {/* Container-fluid starts */}
         <div className="container">
           <div className="row">
             <div className="col-sm-12">
-              {/* Authentication card start */}
               <form
                 className="md-float-material form-material"
                 onSubmit={this.formSubmit}
@@ -119,13 +115,9 @@ class Login extends Component {
                   </div>
                 </div>
               </form>
-              {/* end of form */}
             </div>
-            {/* end of col-sm-12 */}
           </div>
-          {/* end of row */}
         </div>
-        {/* end of container-fluid */}
       </section>
     );
   }
