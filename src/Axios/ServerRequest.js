@@ -6,7 +6,7 @@ import * as Helper from "../Components/Utility/Helper";
  * @param {string} url  api url.
  */
 
-export const allItem = async (url) => {
+export const allItem = async (x) => {
   return await API({
     method: "get",
     url: url,
