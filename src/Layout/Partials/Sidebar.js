@@ -52,7 +52,6 @@ export default function Sidebar() {
             </div>
           </form>
         </div>
-        <div className="pcoded-navigation-label">Navigation</div>
         <NavList />
       </div>
     </nav>

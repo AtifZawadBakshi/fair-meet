@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "./dash.css";
+
 import { URL, BOOKING_LIST, API } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
+import PageHeader from "./PageHeader";
+// import "./dash.css";
 
 export default function Dashboard() {
+  const [bookings, setBookings] = useState([]);
   const [offices, setOffices] = useState([]);
   const [value, setValue] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -25,6 +28,7 @@ export default function Dashboard() {
       .get(URL + BOOKING_LIST)
       .then((response) => {
         setOffices(response.data.data.offices);
+        setBookings(response.data.data.booking);
         setLoading(false);
       })
       .catch(function (error) {
@@ -70,253 +74,58 @@ export default function Dashboard() {
         </section>
       </div>
 
-      <div className="container">
-        {/* Card deck */}
-        <div className="card-deck row">
-          <div className="col-xs-12 col-sm-6 col-md-4">
-            {/* Card */}
-            <div className="cardc">
-              {/*Card content*/}
-              <div className="card-body">
-                {/*Title*/}
-                <h4 className="card-title">1 Card title</h4>
-                {/*Text*/}
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                <div class="card-body">
-                  <h2 class="card-title">This is a title</h2>
-                  <p class="card-text">
-                    This is body text inside my Bootstrap card. This entire card
-                    is a link.
-                  </p>
-                  <a href="#" class="card-link stretched-link">
-                    Learn more
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h2 class="card-title">This is a title</h2>
-                  <p class="card-text">
-                    This is body text inside my Bootstrap card. This entire card
-                    is a link.
-                  </p>
-                  <a href="#" class="card-link stretched-link">
-                    Learn more
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h2 class="card-title">This is a title</h2>
-                  <p class="card-text">
-                    This is body text inside my Bootstrap card. This entire card
-                    is a link.
-                  </p>
-                  <a href="#" class="card-link stretched-link">
-                    Learn more
-                  </a>
-                </div>
-              </div>
-            </div>
-            {/* Card */}
-          </div>
-          <div className="col-xs-12 col-sm-6 col-md-4">
-            {/* Card */}
-            <div className="card mb-4">
-              {/*Card image*/}
-
-              {/*Card content*/}
-              <div className="card-body">
-                {/*Title*/}
-                <h4 className="card-title">2 Card title</h4>
-                {/*Text*/}
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                <div class="cardc text-dark bg-info">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Info card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
+      <div className="container-fluid">
+        <div className="row">
+          {rooms.map((room, index) => {
+            return (
+              <div className="col-12 col-md-6 col-lg-4" key={index}>
+                <div className="card table-card">
+                  <div className="card-header">
+                    <h5 className="m-b-0">{room.title}</h5>
+                    <h6 className="m-b-0">Room ID: {room.id}</h6>
+                    <p className="m-b-0">Capacity: {room.capacity}</p>
                   </div>
-                </div>
-                <div class="cardc text-dark bg-info">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Info card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-                <div class="cardc text-dark bg-info">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Info card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Card */}
-          </div>
-          <div className="col-xs-12 col-sm-6 col-md-4">
-            {/* Card */}
-            <div className="card mb-4">
-              {/*Card content*/}
-              <div className="card-body">
-                {/*Title*/}
-                <h4 className="card-title">3 Card title</h4>
-                {/*Text*/}
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                <div className="card-body">
-                  <h2 className="card-title">This is a title</h2>
-                  <p className="card-text">
-                    This is body text inside my Bootstrap card. This entire card
-                    is a link.
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* Card */}
-          </div>
-          <div className="col-xs-12 col-sm-6 col-md-4">
-            {/* Card */}
-            <div className="cardc">
-              {/*Card content*/}
-              <div className="card-body">
-                {/*Title*/}
-                <h4 className="card-title">4 Card title</h4>
-                {/*Text*/}
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                <div>
-                  <div className="cards">
-                    <div className="cardc">
-                      <h3>TITLE HERE</h3>
-                      <div className="line" />
-                      <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis et
-                        quasi.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="cards">
-                    <div className="cardc">
-                      <h3>TITLE HERE</h3>
-                      <div className="line" />
-                      <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis et
-                        quasi.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="cards">
-                    <div className="cardc">
-                      <h3>TITLE HERE</h3>
-                      <div className="line" />
-                      <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis et
-                        quasi.
-                      </p>
+                  <div className="card-block">
+                    <div className="table-responsive">
+                      <table className="table table-hover m-b-0 without-header">
+                        <tbody>
+                          {bookings.map((booking, index) => {
+                            if (room.id == booking.room_id)
+                              return (
+                                <tr>
+                                  <td>
+                                    <div className="d-inline-block align-middle">
+                                      <div className="d-inline-block">
+                                        <h6>
+                                          <i class="icofont icofont-hand-right text-info"></i>
+                                          {booking.agenda}
+                                        </h6>
+                                        <p className="text-muted m-b-0">
+                                          Chaired with : {booking.chaired_with}
+                                        </p>
+                                        <p className="text-muted m-b-0">
+                                          Total Participants:
+                                          {booking.no_of_participants}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="text-right">
+                                    <h6 className="f-w-400"></h6>
+                                  </td>
+                                </tr>
+                              );
+                          })}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* Card */}
-          </div>
+            );
+          })}
         </div>
       </div>
-
-      {/* <div>
-        <div className="card m-2" style={{ width: 300 }}>
-          <div className="card-header text-center">New Today</div>
-          <div className="card-body">
-            <div class="card-body">
-              <h2 class="card-title">This is a title</h2>
-              <p class="card-text">
-                This is body text inside my Bootstrap card. This entire card is
-                a link.
-              </p>
-              <a href="#" class="card-link stretched-link">
-                Learn more
-              </a>
-            </div>
-            <div class="card-body">
-              <h2 class="card-title">This is a title</h2>
-              <p class="card-text">
-                This is body text inside my Bootstrap card. This entire card is
-                a link.
-              </p>
-              <a href="#" class="card-link stretched-link">
-                Learn more
-              </a>
-            </div>
-            <div class="card-body">
-              <h2 class="card-title">This is a title</h2>
-              <p class="card-text">
-                This is body text inside my Bootstrap card. This entire card is
-                a link.
-              </p>
-              <a href="#" class="card-link stretched-link">
-                Learn more
-              </a>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      {/* <div
-        className="row row-cols-1 row-cols-md-3 g-4"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          margin: "3px",
-          padding: "10px",
-        }}
-      >
-        {rooms.map((room, index) => {
-          return (
-            <div
-              className="card"
-              style={{ width: "22rem", padding: "0.3rem", marginLeft: "7px" }}
-            >
-              <div className="card text-white bg-info mb-3" key={index}>
-                <div className="card-block">
-                  <h6 className="m-b-0">Room ID: {room.id}</h6>
-                  <h4 className="m-t-15 m-b-15">{room.title}</h4>
-                  <p className="m-b-0">Capacity:{room.capacity}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div> */}
     </div>
   );
 }

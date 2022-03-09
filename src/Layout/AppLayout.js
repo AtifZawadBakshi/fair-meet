@@ -3,9 +3,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Dashboard from "../Components/Home/Dashboard";
 import Login from "../Components/Auth/Login";
 import Logout from "../Components/Auth/Logout";
-import Autograph from "../Components/Autograph/Index";
-import CorporateOffice from "../Components/CorporateOffice/Index";
-import HeadOffice from "../Components/HeadOffice/Index";
+import CreateBooking from "../Components/CreateBooking/Index";
+import EditBooking from "../Components/EditBooking/Index";
 
 var user = JSON.parse(localStorage.getItem("user"));
 let isLoggedIn = false;
@@ -30,9 +29,8 @@ const AppLayout = () => (
       <Redirect to="/dashboard" />
       <Route exact path="/" component={Dashboard} />
       <Route path="/dashboard" component={Dashboard} />
-      <Route path="/corporate-office" component={CorporateOffice} />
-      <Route path="/head-office" component={HeadOffice} />
-      <Route path="/autograph" component={Autograph} />
+      <Route path="/create-booking" component={CreateBooking} />
+      <Route path="/edit-booking" component={EditBooking} />
       <Route path="/login" component={Login} />
       <Route path="/logout" component={Logout} />
     </RequireAuth>
