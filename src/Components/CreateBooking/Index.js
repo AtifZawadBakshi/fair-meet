@@ -216,6 +216,7 @@ export default function CrateBooking() {
               <button
                 type="submit"
                 className="btn btn-primary waves-effect waves-light"
+                // onClick={(e) => handleSubmit(e)}
               >
                 <i className="fa fa-save"></i> Save Meeting
               </button>

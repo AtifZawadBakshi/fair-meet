@@ -28,6 +28,18 @@ export default function () {
           </Link>
         </li>
       </ul>
+      <ul class="pcoded-item pcoded-left-item">
+        <li class="active">
+          <Link to="/test" className="sidebar-link">
+            <span class="pcoded-micon">
+              <i class="ti-plus"></i>
+              <b>D</b>
+            </span>
+            <span class="pcoded-mtext">Testing</span>
+            <span class="pcoded-mcaret"></span>
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 }

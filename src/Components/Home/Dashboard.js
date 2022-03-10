@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { URL, BOOKING_LIST, API } from "../../Axios/Api";
+import { URL, BOOKING_LIST, GET_BOOKING } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import PageHeader from "./PageHeader";
@@ -12,6 +12,12 @@ export default function Dashboard() {
   const [offices, setOffices] = useState([]);
   const [value, setValue] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [formData, setFormData] = useState({});
+  const [hasData, setHasData] = useState(false);
+
+  const onChangeInput = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
@@ -46,10 +52,131 @@ export default function Dashboard() {
 
   const { id, title, created_at, updated_at, rooms } = offices[value];
 
+  // function handleClick(e, id) {
+  //   return <UpdateBooking meetid={id} />;
+  // }
+  function editMeeting(id) {
+    // console.log("edit meeting id", id);
+    axios
+      .get(URL + GET_BOOKING + "/" + id)
+      .then((response) => {
+        console.log(response.data.data);
+        setFormData(response.data.data);
+        setHasData(true);
+      })
+      .catch((error) => {
+        Helper.alertMessage("error", error);
+      });
+  }
+  // if (setHasData) return console.log(formData);
   return (
     <div className="card">
       <div className="card-header">
         <h5>Scheduled Meetings</h5>
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Launch demo modal
+        </button>
+        <div
+          className="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="false"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <form>
+                <div className="modal-header">
+                  <h5 className="modal-title" id="staticBackdropLabel">
+                    Edit Meeting
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="mb-3">
+                        <div>
+                          <label htmlFor="meeting_title" className="form-label">
+                            Title *
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={formData.meeting_title || ""}
+                            name="meeting_title"
+                            id="meeting_title"
+                            onChange={onChangeInput}
+                            aria-describedby="meeting_title"
+                          />
+                          <div className="mb-3">
+                            <label htmlFor="agenda" className="form-label">
+                              Agenda*
+                            </label>
+                            <input
+                              type="agenda"
+                              name="agenda"
+                              value={formData.agenda || ""}
+                              className="form-control"
+                              onChange={onChangeInput}
+                              id="agenda"
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="chaired_with"
+                              className="form-label"
+                            >
+                              Area *
+                            </label>
+
+                            <input
+                              type="chaired_with"
+                              name="chaired_with"
+                              className="form-control"
+                              value={formData.chaired_with || ""}
+                              onChange={onChangeInput}
+                              id="chaired_with"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="submit"
+                    x
+                    className="btn btn-primary"
+                    data-bs-dismiss="modal"
+                  >
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="card-block">
         <section className="section">
@@ -75,55 +202,125 @@ export default function Dashboard() {
       </div>
 
       <div className="container-fluid">
-        <div className="row">
-          {rooms.map((room, index) => {
-            return (
-              <div className="col-12 col-md-6 col-lg-4" key={index}>
-                <div className="card table-card">
-                  <div className="card-header">
-                    <h5 className="m-b-0">{room.title}</h5>
-                    <h6 className="m-b-0">Room ID: {room.id}</h6>
-                    <p className="m-b-0">Capacity: {room.capacity}</p>
-                  </div>
-                  <div className="card-block">
-                    <div className="table-responsive">
-                      <table className="table table-hover m-b-0 without-header">
-                        <tbody>
-                          {bookings.map((booking, index) => {
-                            if (room.id == booking.room_id)
-                              return (
-                                <tr>
-                                  <td>
-                                    <div className="d-inline-block align-middle">
-                                      <div className="d-inline-block">
-                                        <h6>
-                                          <i class="icofont icofont-hand-right text-info"></i>
-                                          {booking.agenda}
-                                        </h6>
-                                        <p className="text-muted m-b-0">
-                                          Chaired with : {booking.chaired_with}
-                                        </p>
-                                        <p className="text-muted m-b-0">
-                                          Total Participants:
-                                          {booking.no_of_participants}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td className="text-right">
-                                    <h6 className="f-w-400"></h6>
-                                  </td>
-                                </tr>
-                              );
-                          })}
-                        </tbody>
-                      </table>
+        <div className="card">
+          <div className="card-body">
+            <div className="row">
+              {rooms.map((room, index) => {
+                return (
+                  <div
+                    className="col-12 col-md-6 col-lg-6"
+                    key={index}
+                    // onClick={(e) => <UpdateBooking meetid={id} />}
+                  >
+                    <div className="card table-card">
+                      <div className="card-header">
+                        <h5 className="m-b-0">{room.title}</h5>
+                        <h6 className="m-b-0">Room ID: {room.id}</h6>
+                        <p className="m-b-0">Capacity: {room.capacity}</p>
+                      </div>
+                      <div className="card-block">
+                        <div className="table-responsive">
+                          <table className="table table-hover m-b-0 without-header">
+                            <tbody>
+                              {bookings.map((booking, index) => {
+                                if (room.id == booking.room_id)
+                                  return (
+                                    <tr>
+                                      <td>
+                                        <div className="d-inline-block align-middle">
+                                          <div className="d-inline-block">
+                                            <h6>
+                                              <i class="icofont icofont-hand-right text-info"></i>
+                                              {booking.meeting_title}
+                                            </h6>
+                                            <p className="text-muted m-b-0">
+                                              Agenda : {booking.agenda}
+                                            </p>
+                                            <p className="text-muted m-b-0">
+                                              Chaired with :{" "}
+                                              {booking.chaired_with}
+                                            </p>
+                                            <p className="text-muted m-b-0">
+                                              Total Participants:
+                                              {booking.no_of_participants}
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </td>
+
+                                      <td className="text-right">
+                                        {booking.start_time}
+                                      </td>
+
+                                      <td className="text-right">
+                                        <button
+                                          onClick={() =>
+                                            editMeeting(booking.id)
+                                          }
+                                          className="btn btn-success btn-sm me-2"
+                                          data-bs-toggle="modal"
+                                          data-bs-target="#staticBackdrop"
+                                          style={{
+                                            padding: "2px",
+                                            margin: "2px",
+                                          }}
+                                        >
+                                          <i class="fas fa-edit"></i>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            {/* Modal */}
+            <div
+              className="modal fade"
+              id="exampleModal"
+              tabIndex={-1}
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">
+                      Modal title
+                    </h5>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    />
+                  </div>
+                  <div className="modal-body">...</div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="button" className="btn btn-primary">
+                      Save changes
+                    </button>
                   </div>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          </div>
         </div>
       </div>
     </div>
