@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NavList from "./NavList";
-export default function Sidebar() {
+export default function Sidebar(props) {
+  const user = props.userDetails;
+  console.log(user);
   return (
     <nav className="pcoded-navbar">
       <div className="sidebar_toggle">
@@ -17,7 +19,7 @@ export default function Sidebar() {
             />
             <div className="user-details">
               <span id="more-details">
-                Atif Zawad
+                {user.name}
                 <i className="fa fa-caret-down" />
               </span>
             </div>

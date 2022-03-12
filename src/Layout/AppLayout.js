@@ -27,7 +27,6 @@ const AppLayout = () => (
       {isLoggedIn ? <Redirect to="/dashboard" /> : <Login />}
     </Route>
     <RequireAuth>
-      <Redirect to="/dashboard" />
       <Route exact path="/" component={Dashboard} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/create-booking" component={CreateBooking} />

@@ -7,27 +7,21 @@ import PageHeader from "./Layout/Partials/PageHeader";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
   const history = useHistory();
   if (user != null) {
     return (
       <BrowserRouter history={history}>
         <Preloader />
-        {/* Pre-loader end */}
         <div id="pcoded" className="pcoded">
           <div className="pcoded-overlay-box" />
           <div className="pcoded-container navbar-wrapper">
-            <Header />
+            <Header userDetails={user.user} />
             <div className="pcoded-main-container">
               <div className="pcoded-wrapper">
-                <Sidebar />
+                <Sidebar userDetails={user.user} />
                 <div className="pcoded-content">
-                  {/* Page-header start */}
-                  {/* <PageHeader /> */}
-                  {/* Page-header end */}
-                  {/* <div className="pcoded-inner-content"> */}
-                  {/* Main-body start */}
                   <AppLayout />
-                  {/* </div> */}
                 </div>
               </div>
             </div>
