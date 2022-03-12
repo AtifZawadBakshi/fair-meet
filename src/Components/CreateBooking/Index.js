@@ -6,7 +6,7 @@ import Loader from "../Utility/Loader";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function CrateBooking() {
+export default function CrateBooking(props) {
   const [title, setTitle] = useState("");
   const [agenda, setAgenda] = useState("");
   const [chairWith, setChairWith] = useState("");
@@ -47,7 +47,6 @@ export default function CrateBooking() {
       </section>
     );
   }
-
   function handleSubmit(e) {
     e.preventDefault();
     axios
@@ -63,6 +62,8 @@ export default function CrateBooking() {
       })
       .then((res) => {
         console.log(res);
+        props.history.push("/dashboard");
+        Helper.alertMessage("success", "Successfully Added");
       })
       .catch(function (res) {
         Helper.alertMessage("error", "Something went wrong!");
@@ -75,7 +76,6 @@ export default function CrateBooking() {
         <h5>Book A Room for Meeting</h5>
       </div>
       <div className="card-block">
-        <h4 className="sub-title">Booking Form</h4>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">Meeting Title</label>

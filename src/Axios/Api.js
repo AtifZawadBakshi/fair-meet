@@ -10,6 +10,7 @@ export const BOOKING_STORE = "user/booking-store";
 export const GET_BOOKING = "user/booking-details";
 export const BOOKING_LIST = "user/room-show";
 export const CREATE_BOOKING = "user/booking-create";
+export const DELETE_BOOKING = "user/booking-delete";
 
 const API = async (config) => {
   axios.interceptors.response.use(

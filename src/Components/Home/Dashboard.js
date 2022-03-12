@@ -15,10 +15,6 @@ export default function Dashboard() {
   const [formData, setFormData] = useState({});
   const [hasData, setHasData] = useState(false);
 
-  const onChangeInput = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -52,9 +48,6 @@ export default function Dashboard() {
 
   const { id, title, created_at, updated_at, rooms } = offices[value];
 
-  // function handleClick(e, id) {
-  //   return <UpdateBooking meetid={id} />;
-  // }
   function editMeeting(id) {
     // console.log("edit meeting id", id);
     axios
@@ -71,113 +64,6 @@ export default function Dashboard() {
   // if (setHasData) return console.log(formData);
   return (
     <div className="card">
-      <div className="card-header">
-        <h5>Scheduled Meetings</h5>
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          Launch demo modal
-        </button>
-        <div
-          className="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="false"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <form>
-                <div className="modal-header">
-                  <h5 className="modal-title" id="staticBackdropLabel">
-                    Edit Meeting
-                  </h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="mb-3">
-                        <div>
-                          <label htmlFor="meeting_title" className="form-label">
-                            Title *
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={formData.meeting_title || ""}
-                            name="meeting_title"
-                            id="meeting_title"
-                            onChange={onChangeInput}
-                            aria-describedby="meeting_title"
-                          />
-                          <div className="mb-3">
-                            <label htmlFor="agenda" className="form-label">
-                              Agenda*
-                            </label>
-                            <input
-                              type="agenda"
-                              name="agenda"
-                              value={formData.agenda || ""}
-                              className="form-control"
-                              onChange={onChangeInput}
-                              id="agenda"
-                            />
-                          </div>
-                          <div className="mb-3">
-                            <label
-                              htmlFor="chaired_with"
-                              className="form-label"
-                            >
-                              Area *
-                            </label>
-
-                            <input
-                              type="chaired_with"
-                              name="chaired_with"
-                              className="form-control"
-                              value={formData.chaired_with || ""}
-                              onChange={onChangeInput}
-                              id="chaired_with"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="submit"
-                    x
-                    className="btn btn-primary"
-                    data-bs-dismiss="modal"
-                  >
-                    Save
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="card-block">
         <section className="section">
           <div className="jobs-center">
@@ -237,7 +123,7 @@ export default function Dashboard() {
                                               Agenda : {booking.agenda}
                                             </p>
                                             <p className="text-muted m-b-0">
-                                              Chaired with :{" "}
+                                              Chaired with :
                                               {booking.chaired_with}
                                             </p>
                                             <p className="text-muted m-b-0">
@@ -251,7 +137,7 @@ export default function Dashboard() {
                                       <td className="text-right">
                                         {booking.start_time}
                                       </td>
-
+                                      {/* 
                                       <td className="text-right">
                                         <button
                                           onClick={() =>
@@ -267,7 +153,7 @@ export default function Dashboard() {
                                         >
                                           <i class="fas fa-edit"></i>
                                         </button>
-                                      </td>
+                                      </td> */}
                                     </tr>
                                   );
                               })}
@@ -282,8 +168,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div>
-            {/* Modal */}
+          {/* <div>
             <div
               className="modal fade"
               id="exampleModal"
@@ -320,7 +205,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
