@@ -5,7 +5,7 @@ import Login from "../Components/Auth/Login";
 import Logout from "../Components/Auth/Logout";
 import CreateBooking from "../Components/CreateBooking/Index";
 // import UpdateBooking from "../Components/UpdateBooking/Index";
-import Test from "../Components/Test/Test";
+import EditBooking from "../Components/EditBooking/Index";
 
 var user = JSON.parse(localStorage.getItem("user"));
 let isLoggedIn = false;
@@ -32,7 +32,7 @@ const AppLayout = () => (
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/create-booking" component={CreateBooking} />
       {/* <Route path="/update-booking" component={UpdateBooking} /> */}
-      <Route path="/test" component={Test} />
+      <Route path="/edit-booking" component={EditBooking} />
       <Route path="/login" component={Login} />
       <Route path="/logout" component={Logout} />
     </RequireAuth>

@@ -22,12 +22,12 @@ function App() {
                 <Sidebar />
                 <div className="pcoded-content">
                   {/* Page-header start */}
-                  <PageHeader />
+                  {/* <PageHeader /> */}
                   {/* Page-header end */}
-                  <div className="pcoded-inner-content">
-                    {/* Main-body start */}
-                    <AppLayout />
-                  </div>
+                  {/* <div className="pcoded-inner-content"> */}
+                  {/* Main-body start */}
+                  <AppLayout />
+                  {/* </div> */}
                 </div>
               </div>
             </div>

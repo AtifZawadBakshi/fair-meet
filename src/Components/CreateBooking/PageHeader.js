@@ -7,8 +7,10 @@ export default function PageHeader() {
         <div className="row align-items-center">
           <div className="col-md-8">
             <div className="page-header-title">
-              <h5 className="m-b-10">Dashboard</h5>
-              <p className="m-b-0">Welcome to FairMeet Dashboard</p>
+              <h5 className="m-b-10">Creat Booking</h5>
+              <p className="m-b-0">
+                Feel free to create a meeting and notify others!
+              </p>
             </div>
           </div>
           <div className="col-md-4">

@@ -43,12 +43,7 @@ export default function Sidebar() {
         <div className="p-15 p-b-0">
           <form className="form-material">
             <div className="form-group form-primary">
-              <input type="text" name="footer-email" className="form-control" />
               <span className="form-bar" />
-              <label className="float-label">
-                <i className="fa fa-search m-r-10" />
-                Search
-              </label>
             </div>
           </form>
         </div>

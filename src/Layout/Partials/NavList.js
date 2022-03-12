@@ -16,26 +16,27 @@ export default function () {
           </Link>
         </li>
       </ul>
+
       <ul class="pcoded-item pcoded-left-item">
         <li class="active">
           <Link to="/create-booking" className="sidebar-link">
             <span class="pcoded-micon">
               <i class="ti-plus"></i>
-              <b>D</b>
+              <b>CB</b>
             </span>
-            <span class="pcoded-mtext">Meeting Booking</span>
+            <span class="pcoded-mtext">Create Booking</span>
             <span class="pcoded-mcaret"></span>
           </Link>
         </li>
       </ul>
       <ul class="pcoded-item pcoded-left-item">
         <li class="active">
-          <Link to="/test" className="sidebar-link">
+          <Link to="/edit-booking" className="sidebar-link">
             <span class="pcoded-micon">
-              <i class="ti-plus"></i>
-              <b>D</b>
+              <i class="fas fa-edit"></i>
+              <b>UB</b>
             </span>
-            <span class="pcoded-mtext">Testing</span>
+            <span class="pcoded-mtext">Update Booking</span>
             <span class="pcoded-mcaret"></span>
           </Link>
         </li>
