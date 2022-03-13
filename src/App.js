@@ -3,7 +3,6 @@ import AppLayout from "./Layout/AppLayout";
 import Header from "./Layout/Partials/Header";
 import Preloader from "./Layout/Partials/PreLoader";
 import Sidebar from "./Layout/Partials/Sidebar";
-import PageHeader from "./Layout/Partials/PageHeader";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));

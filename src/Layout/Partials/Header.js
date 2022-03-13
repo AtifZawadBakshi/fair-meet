@@ -57,7 +57,7 @@ function Header(props) {
                 </a>
               </div>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="#!"
                 onclick="javascript:toggleFullScreen()"
@@ -65,7 +65,7 @@ function Header(props) {
               >
                 <i className="ti-fullscreen" />
               </a>
-            </li>
+            </li> */}
           </ul>
           <ul className="nav-right">
             <li className="user-profile header-notification">

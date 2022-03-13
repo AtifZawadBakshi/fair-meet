@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 import { URL, BOOKING_LIST, GET_BOOKING } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import PageHeader from "./PageHeader";
-// import "./dash.css";
+import "./dash.css";
 
 export default function Dashboard() {
   const [bookings, setBookings] = useState([]);
@@ -103,10 +103,23 @@ export default function Dashboard() {
                       >
                         <div className="card table-card">
                           <div className="card-header">
-                            <h5 className="m-b-0">{room.title}</h5>
-                            <h6 className="m-b-0">Room ID: {room.id}</h6>
-                            <p className="m-b-0">Capacity: {room.capacity}</p>
+                            <div className="display-inline-block">
+                              <h5 className="m-b-0">{room.title}</h5>
+                              <h6 className="m-b-0">Room ID: {room.id}</h6>
+                              <p className="m-b-0">Capacity: {room.capacity}</p>
+                            </div>
+
+                            <div className="button">
+                              <Link
+                                to={"/room-details/" + room.id}
+                                className="btn btn-primary btn-sm me-2"
+                                style={{ padding: "3px 3px", margin: "2px" }}
+                              >
+                                Details
+                              </Link>
+                            </div>
                           </div>
+
                           <div className="card-block">
                             <div className="table-responsive">
                               <table className="table table-hover m-b-0 without-header">
@@ -140,23 +153,6 @@ export default function Dashboard() {
                                           <td className="text-right">
                                             {booking.start_time}
                                           </td>
-                                          {/* 
-                                      <td className="text-right">
-                                        <button
-                                          onClick={() =>
-                                            editMeeting(booking.id)
-                                          }
-                                          className="btn btn-success btn-sm me-2"
-                                          data-bs-toggle="modal"
-                                          data-bs-target="#staticBackdrop"
-                                          style={{
-                                            padding: "2px",
-                                            margin: "2px",
-                                          }}
-                                        >
-                                          <i class="fas fa-edit"></i>
-                                        </button>
-                                      </td> */}
                                         </tr>
                                       );
                                   })}
@@ -170,45 +166,6 @@ export default function Dashboard() {
                   })}
                 </div>
               </div>
-
-              {/* <div>
-            <div
-              className="modal fade"
-              id="exampleModal"
-              tabIndex={-1}
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">
-                      Modal title
-                    </h5>
-                    <button
-                      type="button"
-                      className="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    />
-                  </div>
-                  <div className="modal-body">...</div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Save changes
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
             </div>
           </div>
         </div>

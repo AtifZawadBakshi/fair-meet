@@ -12,16 +12,7 @@ export default function PageHeader() {
             </div>
           </div>
           <div className="col-md-4">
-            <ul className="breadcrumb">
-              {/* <li className="breadcrumb-item">
-                <Link to exact="/">
-                  <i className="fa fa-home" />
-                </Link>
-              </li>
-              <li className="breadcrumb-item">
-                <Link a="/dashboard">Dashboard</Link>
-              </li> */}
-            </ul>
+            <ul className="breadcrumb"></ul>
           </div>
         </div>
       </div>

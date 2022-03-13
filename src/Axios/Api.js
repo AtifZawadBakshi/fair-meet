@@ -8,6 +8,7 @@ export const LOGOUT = "user/logout";
 export const PROFILE_UPDATE = "user/profile/update";
 export const BOOKING_STORE = "user/booking-store";
 export const GET_BOOKING = "user/booking-details";
+export const GET_ROOM = "user/room-details";
 export const BOOKING_LIST = "user/room-show";
 export const CREATE_BOOKING = "user/booking-create";
 export const DELETE_BOOKING = "user/booking-delete";
