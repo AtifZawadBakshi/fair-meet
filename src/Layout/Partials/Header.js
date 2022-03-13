@@ -66,6 +66,7 @@ function Header(props) {
             </li>
           </ul>
           <ul className="nav-right">
+
             <li className="user-profile header-notification">
               <a href="#!" className="waves-effect waves-light">
                 <img

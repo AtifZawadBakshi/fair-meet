@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const URL = "http://192.168.0.125/fair_meeting/api/";
+export const URL = "http://10.100.10.74/meeting_booking/api/";
 export const USER_LOGIN = "user/login";
 export const PROFILE = "user/profile";
 export const LOGIN = "user/login";
