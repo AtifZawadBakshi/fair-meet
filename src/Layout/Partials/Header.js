@@ -35,13 +35,15 @@ function Header(props) {
               </div>
             </div>
           </div>
-          <a href="index.html">
+          <Link to="/dashboard">
             <img
               className="img-fluid"
-              src="assets/images/logo.png"
+              src="assets/images/Fair-Group-Logo.png"
               alt="Theme-Logo"
+              width="150"
+              height="250"
             />
-          </a>
+          </Link>
           <a className="mobile-options waves-effect waves-light">
             <i className="ti-more" />
           </a>

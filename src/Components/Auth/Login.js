@@ -58,7 +58,10 @@ class Login extends Component {
                 onSubmit={this.formSubmit}
               >
                 <div className="text-center">
-                  <img src="assets/images/logo.png" alt="logo.png" />
+                  <img
+                    src="assets/images/Fair-Group-Logo.png"
+                    alt="Fair-Group-Logo.png"
+                  />
                 </div>
                 <div className="auth-box card">
                   <div className="card-block">
