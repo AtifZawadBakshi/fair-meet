@@ -26,9 +26,9 @@ export default function RoomDetails(props) {
     axios
       .get(URL + GET_ROOM + "/" + id)
       .then((response) => {
-        setMeetings(response.data.data);
-        setRoomName(response.data.data[0].room.title);
-        setOfficeName(response.data.data[0].office.title);
+        setMeetings(response.data.data.meeting_list);
+        setRoomName(response.data.data.room_details.title);
+        setOfficeName(response.data.data.room_details.office.title);
         setLoading(false);
       })
       .catch((error) => {
@@ -47,13 +47,13 @@ export default function RoomDetails(props) {
   }
 
   // const { id, title, created_at, updated_at, rooms } = offices[value];
-  // if (meetings == {}) {
-  //   return (
-  //     <section className="section loading">
-  //       Hurraahh!! No Meetings Today !
-  //     </section>
-  //   );
-  // }
+  if (meetings == {}) {
+    return (
+      <section className="section loading">
+        Hurraahh!! No Meetings Today !
+      </section>
+    );
+  }
   return (
     <>
       <div className="page-header">
@@ -75,51 +75,52 @@ export default function RoomDetails(props) {
         <div className="card">
           <div className="card-body">
             <div className="row">
-              {meetings.map((meeting, index) => {
-                return (
-                  <div className="col-12 col-md-6 col-lg-4" key={index}>
-                    <div className="card table-card">
-                      <div className="card-header">
-                        <div className="display-inline-block">
-                          <h5 className="m-b-0">{meeting.meeting_title}</h5>
+              {meetings &&
+                meetings.map((meeting, index) => {
+                  return (
+                    <div className="col-12 col-md-6 col-lg-4" key={index}>
+                      <div className="card table-card">
+                        <div className="card-header">
+                          <div className="display-inline-block">
+                            <h5 className="m-b-0">{meeting.meeting_title}</h5>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="card-block">
-                        <div className="table-responsive">
-                          <table className="table table-hover m-b-0 without-header">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <div className="d-inline-block align-middle">
-                                    <div className="d-inline-block">
-                                      <h6>Agenda : {meeting.agenda}</h6>
-                                      <p className="text-muted m-b-0">
-                                        Chaired with : {meeting.chaired_with}
-                                      </p>
+                        <div className="card-block">
+                          <div className="table-responsive">
+                            <table className="table table-hover m-b-0 without-header">
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div className="d-inline-block align-middle">
+                                      <div className="d-inline-block">
+                                        <h6>Agenda : {meeting.agenda}</h6>
+                                        <p className="text-muted m-b-0">
+                                          Chaired with : {meeting.chaired_with}
+                                        </p>
 
-                                      <p className="text-muted m-b-0">
-                                        Total Participants:
-                                        {meeting.no_of_participants}
-                                      </p>
-                                      <p className="text-muted m-b-0">
-                                        Start Time :{meeting.start_time}
-                                      </p>
-                                      <p className="text-muted m-b-0">
-                                        End Time :{meeting.end_time}
-                                      </p>
+                                        <p className="text-muted m-b-0">
+                                          Total Participants:
+                                          {meeting.no_of_participants}
+                                        </p>
+                                        <p className="text-muted m-b-0">
+                                          Start Time :{meeting.start_time}
+                                        </p>
+                                        <p className="text-muted m-b-0">
+                                          End Time :{meeting.end_time}
+                                        </p>
+                                      </div>
                                     </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
         </div>
