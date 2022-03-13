@@ -66,11 +66,10 @@ function Header(props) {
             </li>
           </ul>
           <ul className="nav-right">
-
             <li className="user-profile header-notification">
               <a href="#!" className="waves-effect waves-light">
                 <img
-                  src="assets/images/avatar-4.jpg"
+                  src="assets/images/user_icon.jpg"
                   className="img-radius"
                   alt="User-Profile-Image"
                 />
