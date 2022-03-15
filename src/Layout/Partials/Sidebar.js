@@ -14,7 +14,7 @@ export default function Sidebar(props) {
           <div className="main-menu-header">
             <img
               className="img-80 img-radius"
-              src="assets/images/user_icon.jpg"
+              src="https://avatars.githubusercontent.com/u/7061205?v=4"
               alt="User-Profile-Image"
             />
             <div className="user-details">

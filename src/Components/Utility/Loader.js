@@ -1,6 +1,6 @@
 export default function Loader() {
   return (
-    <div className="row">
+    <div className="row" style={{ marginTop: "300px" }}>
       <div className="col-md-12 text-center">
         <div className="spinner-border text-primary" role="status">
           <div className="preloader-wrapper">

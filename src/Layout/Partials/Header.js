@@ -35,7 +35,7 @@ function Header(props) {
               </div>
             </div>
           </div>
-          <Link to="/dashboard">
+          <Link to="/home">
             <img
               className="img-fluid"
               src="assets/images/Fair-Group-Logo.png"
@@ -71,7 +71,7 @@ function Header(props) {
             <li className="user-profile header-notification">
               <a href="#!" className="waves-effect waves-light">
                 <img
-                  src="assets/images/user_icon.jpg"
+                  src="https://avatars.githubusercontent.com/u/7061205?v=4"
                   className="img-radius"
                   alt="User-Profile-Image"
                 />

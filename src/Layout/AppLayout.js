@@ -6,7 +6,7 @@ import Login from "../Components/Auth/Login";
 import Logout from "../Components/Auth/Logout";
 import CreateBooking from "../Components/CreateBooking/Index";
 import RoomDetails from "../Components/RoomDetails/Index";
-import EditBooking from "../Components/EditBooking/Index";
+import BookingList from "../Components/BookingList/Index";
 import UpdateBooking from "../Components/UpdateBooking/Index";
 import Autograph from "../Components/Autograph/Index";
 import HeadOffice from "../Components/HeadOffice/Index";
@@ -32,7 +32,7 @@ const AppLayout = () => (
       {isLoggedIn ? <Redirect to="/home" /> : <Login />}
     </Route>
     <RequireAuth>
-      <Route exact path="/" component={Dashboard} />
+      <Route exact path="/" component={Home} />
       <Route path="/home" component={Home} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/head-office" component={HeadOffice} />
@@ -40,7 +40,7 @@ const AppLayout = () => (
       <Route path="/strategic-office" component={Autograph} />
       <Route path="/room-details/:id" component={RoomDetails} />
       <Route path="/create-booking" component={CreateBooking} />
-      <Route path="/edit-booking" component={EditBooking} />
+      <Route path="/booking-list" component={BookingList} />
       <Route path="/update-booking/:id" component={UpdateBooking} />
       <Route path="/login" component={Login} />
       <Route path="/logout" component={Logout} />

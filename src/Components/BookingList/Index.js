@@ -92,7 +92,7 @@ export default function Test() {
       <div className="pcoded-inner-content">
         <div className="card">
           <div className="card-header">
-            <h5>Bookings List</h5>
+            <h5>Update Bookings </h5>
           </div>
           <div className="card-block">
             <div className="card-body">
