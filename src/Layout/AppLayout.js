@@ -1,11 +1,16 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Dashboard from "../Components/Home/Dashboard";
+import Home from "../Components/Home/Home";
 import Login from "../Components/Auth/Login";
 import Logout from "../Components/Auth/Logout";
 import CreateBooking from "../Components/CreateBooking/Index";
 import RoomDetails from "../Components/RoomDetails/Index";
 import EditBooking from "../Components/EditBooking/Index";
+import UpdateBooking from "../Components/UpdateBooking/Index";
+import Autograph from "../Components/Autograph/Index";
+import HeadOffice from "../Components/HeadOffice/Index";
+import CorporateOffice from "../Components/CorporateOffice/Index";
 
 var user = JSON.parse(localStorage.getItem("user"));
 let isLoggedIn = false;
@@ -24,14 +29,19 @@ const RequireAuth = ({ children }) => {
 const AppLayout = () => (
   <Switch>
     <Route path="/login">
-      {isLoggedIn ? <Redirect to="/dashboard" /> : <Login />}
+      {isLoggedIn ? <Redirect to="/home" /> : <Login />}
     </Route>
     <RequireAuth>
       <Route exact path="/" component={Dashboard} />
+      <Route path="/home" component={Home} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/head-office" component={HeadOffice} />
+      <Route path="/corporate-office" component={CorporateOffice} />
+      <Route path="/strategic-office" component={Autograph} />
       <Route path="/room-details/:id" component={RoomDetails} />
       <Route path="/create-booking" component={CreateBooking} />
       <Route path="/edit-booking" component={EditBooking} />
+      <Route path="/update-booking/:id" component={UpdateBooking} />
       <Route path="/login" component={Login} />
       <Route path="/logout" component={Logout} />
     </RequireAuth>

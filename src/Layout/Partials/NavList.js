@@ -6,9 +6,21 @@ export default function () {
     <div>
       <ul class="pcoded-item pcoded-left-item">
         <li class="active">
-          <Link to="/dashboard" className="sidebar-link">
+          <Link to="/home" className="sidebar-link">
             <span class="pcoded-micon">
               <i class="ti-home"></i>
+              <b>H</b>
+            </span>
+            <span class="pcoded-mtext">Home</span>
+            <span class="pcoded-mcaret"></span>
+          </Link>
+        </li>
+      </ul>
+      <ul class="pcoded-item pcoded-left-item">
+        <li class="active">
+          <Link to="/dashboard" className="sidebar-link">
+            <span class="pcoded-micon">
+              <i className="ti-home"></i>
               <b>D</b>
             </span>
             <span class="pcoded-mtext">Dashboard</span>

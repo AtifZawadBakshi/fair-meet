@@ -27,14 +27,14 @@ export default function Sidebar(props) {
           <div className="main-menu-content">
             <ul>
               <li className="more-details">
-                <a href="user-profile.html">
+                {/* <a href="user-profile.html">
                   <i className="ti-user" />
                   View Profile
-                </a>
-                <a href="#!">
+                </a> */}
+                {/* <a href="#!">
                   <i className="ti-settings" />
                   Settings
-                </a>
+                </a> */}
                 <Link to="/logout">
                   <i className="ti-layout-sidebar-left" /> Logout
                 </Link>

@@ -13,8 +13,6 @@ export default function Dashboard() {
   const [value, setValue] = useState(0);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({});
-  const [hasData, setHasData] = useState(false);
-
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -48,20 +46,6 @@ export default function Dashboard() {
 
   const { id, title, created_at, updated_at, rooms } = offices[value];
 
-  function editMeeting(id) {
-    // console.log("edit meeting id", id);
-    axios
-      .get(URL + GET_BOOKING + "/" + id)
-      .then((response) => {
-        console.log(response.data.data);
-        setFormData(response.data.data);
-        setHasData(true);
-      })
-      .catch((error) => {
-        Helper.alertMessage("error", error);
-      });
-  }
-  // if (setHasData) return console.log(formData);
   return (
     <>
       <PageHeader />

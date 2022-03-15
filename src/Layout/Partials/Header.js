@@ -79,26 +79,26 @@ function Header(props) {
                 <i className="ti-angle-down" />
               </a>
               <ul className="show-notification profile-notification">
-                <li className="waves-effect waves-light">
+                {/* <li className="waves-effect waves-light">
                   <a href="#!">
                     <i className="ti-settings" /> Settings
                   </a>
-                </li>
-                <li className="waves-effect waves-light">
+                </li> */}
+                {/* <li className="waves-effect waves-light">
                   <a href="user-profile.html">
                     <i className="ti-user" /> Profile
                   </a>
-                </li>
-                <li className="waves-effect waves-light">
+                </li> */}
+                {/* <li className="waves-effect waves-light">
                   <a href="email-inbox.html">
                     <i className="ti-email" /> My Messages
                   </a>
-                </li>
-                <li className="waves-effect waves-light">
+                </li> */}
+                {/* <li className="waves-effect waves-light">
                   <a href="auth-lock-screen.html">
                     <i className="ti-lock" /> Lock Screen
                   </a>
-                </li>
+                </li> */}
                 <li className="waves-effect waves-light">
                   <Link to="/logout">
                     <i className="ti-layout-sidebar-left" /> Logout

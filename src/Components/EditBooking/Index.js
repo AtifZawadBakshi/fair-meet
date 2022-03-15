@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import PageHeader from "./PageHeader";
+import { Link } from "react-router-dom";
 import { Button, MyVerticallyCenteredModal } from "react-modal";
 import {
   URL,
@@ -128,18 +129,17 @@ export default function Test() {
                         <td> {val.room.title}</td>
                         <td> {val.chaired_with}</td>
                         <td>
-                          <button
-                            onClick={() => editItem(val.id)}
+                          <Link
+                            to={"/update-booking/" + val.id}
                             className="btn btn-inverse btn-sm me-2"
-                            data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop"
                             style={{ padding: "3px 3px", margin: "2px" }}
                           >
                             <i
                               className="fas fa-edit"
                               style={{ padding: "3px 3px", margin: "2px" }}
                             ></i>
-                          </button>
+                          </Link>
+
                           <button
                             onClick={() => {
                               if (window.confirm("Delete the item?")) {
