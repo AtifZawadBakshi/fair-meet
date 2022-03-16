@@ -28,19 +28,6 @@ export default function () {
           </Link>
         </li>
       </ul>
-
-      <ul class="pcoded-item pcoded-left-item">
-        <li class="pcoded-micon">
-          <Link to="/create-booking" className="sidebar-link">
-            <span class="pcoded-micon">
-              <i class="ti-plus"></i>
-              <b>CB</b>
-            </span>
-            <span class="pcoded-mtext">Create Booking</span>
-            <span class="pcoded-mcaret"></span>
-          </Link>
-        </li>
-      </ul>
       <ul class="pcoded-item pcoded-left-item">
         <li class="pcoded-micon">
           <Link to="/booking-list" className="sidebar-link">
@@ -49,6 +36,18 @@ export default function () {
               <b>UB</b>
             </span>
             <span class="pcoded-mtext">Booking List</span>
+            <span class="pcoded-mcaret"></span>
+          </Link>
+        </li>
+      </ul>
+      <ul class="pcoded-item pcoded-left-item">
+        <li class="pcoded-micon">
+          <Link to="/create-booking" className="sidebar-link">
+            <span class="pcoded-micon">
+              <i class="ti-plus"></i>
+              <b>CB</b>
+            </span>
+            <span class="pcoded-mtext">Create Booking</span>
             <span class="pcoded-mcaret"></span>
           </Link>
         </li>

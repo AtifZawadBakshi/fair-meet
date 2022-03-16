@@ -1,14 +1,18 @@
 import axios from "axios";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { URL, BOOKING_LIST } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import HeaderPage from "./HeaderPage";
+import dateFormat from "dateformat";
+
 export default function Autograph() {
   const [office, setOffice] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -88,9 +92,9 @@ export default function Autograph() {
                                               <i class="icofont icofont-hand-right text-info"></i>
                                               {booking.meeting_title}
                                             </h6>
-                                            <p className="text-muted m-b-0">
+                                            {/* <p className="text-muted m-b-0">
                                               Agenda : {booking.agenda}
-                                            </p>
+                                            </p> */}
                                             <p className="text-muted m-b-0">
                                               Chaired with :
                                               {booking.chaired_with}
@@ -99,12 +103,29 @@ export default function Autograph() {
                                               Total Participants:
                                               {booking.no_of_participants}
                                             </p>
+                                            <p className="text-muted m-b-0">
+                                              Date:{" "}
+                                              {moment(booking.start_time)
+                                                .add(24, "hours")
+                                                .format("LL")}
+                                            </p>
                                           </div>
                                         </div>
                                       </td>
 
                                       <td className="text-right">
-                                        {booking.start_time}
+                                        <p className="text-muted m-b-0">
+                                          Start Time:{" "}
+                                          {moment(booking.start_time)
+                                            .add(24, "hours")
+                                            .format("h:mm a")}
+                                        </p>
+                                        <p className="text-muted m-b-0">
+                                          End Time:{" "}
+                                          {moment(booking.end_time)
+                                            .add(24, "hours")
+                                            .format("h:mm a")}
+                                        </p>
                                       </td>
                                     </tr>
                                   );

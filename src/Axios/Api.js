@@ -12,6 +12,7 @@ export const GET_ROOM = "user/room-details";
 export const BOOKING_LIST = "user/room-show";
 export const CREATE_BOOKING = "user/booking-create";
 export const DELETE_BOOKING = "user/booking-delete";
+export const UPDATE_BOOKING = "user/booking-update";
 
 const API = async (config) => {
   axios.interceptors.response.use(

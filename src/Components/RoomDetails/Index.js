@@ -4,6 +4,7 @@ import { URL, GET_ROOM } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import axios from "axios";
+import moment from "moment";
 
 export default function RoomDetails(props) {
   const { id } = props.match.params;
@@ -112,10 +113,22 @@ export default function RoomDetails(props) {
                                           {meeting.no_of_participants}
                                         </p>
                                         <p className="text-muted m-b-0">
-                                          Start Time :{meeting.start_time}
+                                          Date:{" "}
+                                          {moment(meeting.start_time)
+                                            .add(24, "hours")
+                                            .format("LL")}
                                         </p>
                                         <p className="text-muted m-b-0">
-                                          End Time :{meeting.end_time}
+                                          Start Time:{" "}
+                                          {moment(meeting.start_time)
+                                            .add(24, "hours")
+                                            .format("h:mm a")}
+                                        </p>
+                                        <p className="text-muted m-b-0">
+                                          End Time:{" "}
+                                          {moment(meeting.end_time)
+                                            .add(24, "hours")
+                                            .format("h:mm a")}
                                         </p>
                                       </div>
                                     </div>

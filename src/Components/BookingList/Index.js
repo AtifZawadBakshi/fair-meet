@@ -15,7 +15,6 @@ import {
 export default function Test() {
   let [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(true);
-  const [modalShow, setModalShow] = React.useState(false);
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
