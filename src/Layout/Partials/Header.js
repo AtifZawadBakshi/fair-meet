@@ -12,7 +12,6 @@ function Header(props) {
           <a
             className="mobile-menu waves-effect waves-light"
             id="mobile-collapse"
-            href="#!"
           >
             <i className="ti-menu" />
           </a>
@@ -69,7 +68,7 @@ function Header(props) {
           </ul>
           <ul className="nav-right">
             <li className="user-profile header-notification">
-              <a href="#!" className="waves-effect waves-light">
+              <a className="waves-effect waves-light">
                 <img
                   src="https://avatars.githubusercontent.com/u/7061205?v=4"
                   className="img-radius"
@@ -100,7 +99,7 @@ function Header(props) {
                   </a>
                 </li> */}
                 <li className="waves-effect waves-light">
-                  <Link to="/logout">
+                  <Link to="/logout" style={{ textDecoration: "none" }}>
                     <i className="ti-layout-sidebar-left" /> Logout
                   </Link>
                 </li>

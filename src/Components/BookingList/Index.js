@@ -5,6 +5,8 @@ import Loader from "../Utility/Loader";
 import PageHeader from "./PageHeader";
 import { Link } from "react-router-dom";
 import { Button, MyVerticallyCenteredModal } from "react-modal";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import {
   URL,
   BOOKING_LIST,
@@ -79,7 +81,11 @@ export default function Test() {
       });
   }
   if (loading) {
-    return <section className="section loading">{/* <Loader /> */}</section>;
+    return (
+      <section className="section loading">
+        <Loader />
+      </section>
+    );
   }
   return (
     <>
@@ -155,6 +161,9 @@ export default function Test() {
                   </tbody>
                 </table>
               </div>
+              <Stack spacing={2}>
+                <Pagination count={10} color="primary" />
+              </Stack>
             </div>
           </div>
         </div>

@@ -40,7 +40,11 @@ export default function RoomDetails(props) {
   }, []);
 
   if (loading) {
-    return <section className="section loading">{/* <Loader /> */}</section>;
+    return (
+      <section className="section loading">
+        <Loader />
+      </section>
+    );
   }
 
   // const { id, title, created_at, updated_at, rooms } = offices[value];

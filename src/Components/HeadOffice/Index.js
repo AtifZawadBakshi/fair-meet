@@ -34,7 +34,11 @@ export default function HeadOffice() {
   }, []);
 
   if (loading) {
-    return <section className="section loading">{/* <Loader /> */}</section>;
+    return (
+      <section className="section loading">
+        <Loader />
+      </section>
+    );
   }
   return (
     <>

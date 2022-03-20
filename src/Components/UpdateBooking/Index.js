@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.js";
 import {
   URL,
   GET_BOOKING,
@@ -68,7 +71,11 @@ export default function UpdateBooking(props) {
   }, []);
 
   if (loading) {
-    return <section className="section loading">{/* <Loader /> */}</section>;
+    return (
+      <section className="section loading">
+        <Loader />
+      </section>
+    );
   }
 
   const onChangeInput = (e) => {
@@ -180,7 +187,7 @@ export default function UpdateBooking(props) {
                       {offices.map((office, index) => {
                         if (office.id == formData.office_id)
                           return office.rooms.map((room, index) => {
-                            if (room.title !== formData.room.title) {
+                            if (room.title != formData.room.title) {
                               return (
                                 <option key={room.id} value={room.id}>
                                   {room.title}(Max Capacity: {room.capacity})
@@ -227,32 +234,34 @@ export default function UpdateBooking(props) {
                   <label className="col-sm-2 col-form-label">
                     Starting Time & Date
                   </label>
-                  {console.log(startTime)}
-                  {/* <div className="col-sm-10">
+                  {console.log(formData.start_time)}
+                  <div className="col-sm-10">
                     <DatePicker
-                      selected={startTime}
-                      onChange={(date) => setStartTime(date)}
+                      value={formData.start_time}
+                      name="start_time"
                       showTimeSelect
                       dateFormat="MMMM d, yyyy h:mm aa"
                       className="form-control"
+                      onChange={onChangeInput}
                     />
-                  </div> */}
+                  </div>
                 </div>
 
                 <div className="form-group row">
                   <label className="col-sm-2 col-form-label">
                     Ending Time & Date
                   </label>
-                  {console.log(endTime)}
-                  {/* <div className="col-sm-10">
+                  {console.log(formData.end_time)}
+                  <div className="col-sm-10">
                     <DatePicker
-                      selected={endTime}
-                      onChange={(date) => setEndTime(date)}
+                      value={formData.start_time}
+                      name="end_time"
                       showTimeSelect
                       dateFormat="MMMM d, yyyy h:mm aa"
                       className="form-control"
+                      onChange={onChangeInput}
                     />
-                  </div> */}
+                  </div>
                 </div>
 
                 <div className="form-group row">
@@ -273,6 +282,7 @@ export default function UpdateBooking(props) {
                   <div className="col-sm-10">
                     <button
                       type="submit"
+                      style={{ margin: "5px" }}
                       className="btn btn-primary waves-effect waves-light"
                     >
                       {console.log(endTime)}

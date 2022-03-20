@@ -42,7 +42,11 @@ export default function CrateBooking(props) {
   }, []);
 
   if (loading) {
-    return <section className="section loading">{/* <Loader /> */}</section>;
+    return (
+      <section className="section loading">
+        <Loader />
+      </section>
+    );
   }
   function handleSubmit(e) {
     e.preventDefault();
