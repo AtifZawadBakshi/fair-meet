@@ -3,7 +3,8 @@ import AppLayout from "./Layout/AppLayout";
 import Header from "./Layout/Partials/Header";
 import Preloader from "./Layout/Partials/PreLoader";
 import Sidebar from "./Layout/Partials/Sidebar";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
   console.log(user);

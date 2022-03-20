@@ -14,19 +14,19 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function UpdateBooking(props) {
   const { id } = props.match.params;
-  let [formData, setFormData] = useState({});
-  let [title, setTitle] = useState("");
-  let [agenda, setAgenda] = useState("");
-  let [chairWith, setChairWith] = useState("");
-  let [loading, setLoading] = useState(true);
-  let [chairno, setChairno] = useState(0);
-  let [offices, setOffices] = useState([]);
+  const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [offices, setOffices] = useState([]);
+  // let [title, setTitle] = useState("");
+  // let [agenda, setAgenda] = useState("");
+  // let [chairWith, setChairWith] = useState("");
+  // let [chairno, setChairno] = useState(0);
   let [endTime, setEndTime] = useState(null);
   let [startTime, setStartTime] = useState(null);
-  let [selectedOffice, setSelectedOffice] = useState(0);
-  let [selectedRoom, setSelectedRoom] = useState(0);
+  // let [selectedOffice, setSelectedOffice] = useState(0);
+  // let [selectedRoom, setSelectedRoom] = useState(0);
 
-  useEffect(() => {
+  useEffect(async () => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
       (config) => {
@@ -37,30 +37,30 @@ export default function UpdateBooking(props) {
         return Promise.reject(error);
       }
     );
-    axios
+    await axios
       .get(URL + BOOKING_LIST)
       .then((response) => {
+        console.log(response.data.data.offices);
         setOffices(response.data.data.offices);
       })
       .catch(function (error) {
         Helper.alertMessage("error", error);
       });
-    axios
+    await axios
       .get(URL + GET_BOOKING + "/" + id)
       .then((response) => {
         console.log(response.data.data);
         setFormData(response.data.data);
-        formData.meeting_title = "New Meeting Title";
+        // formData.meeting_title = "New Meeting Title";
         // setTitle(response.data.data.meeting_title);
         // setAgenda(response.data.data.agenda);
         // setChairWith(response.data.data.chaired_with);
         // setChairno(response.data.data.no_of_participants);
-        // setEndTime(response.data.data.start_time);
-        // setStartTime(response.data.data.end_time);
+        setEndTime(response.data.data.start_time);
+        setStartTime(response.data.data.end_time);
         // setSelectedOffice(response.data.data.office_id);
         // setSelectedRoom(response.data.data.room_id);
         setLoading(false);
-        console.log(title);
       })
       .catch((error) => {
         Helper.alertMessage("error", error);
@@ -68,26 +68,20 @@ export default function UpdateBooking(props) {
   }, []);
 
   if (loading) {
-    return (
-      <section className="section loading">
-        <Loader />
-      </section>
-    );
+    return <section className="section loading">{/* <Loader /> */}</section>;
   }
+
+  const onChangeInput = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
+    setFormData({ ...formData, ["id"]: id });
+    // setFormData({ ...formData, ["start_time"]: startTime });
+    // setFormData({ ...formData, ["end_time"]: endTime });
     axios
-      .post(URL + UPDATE_BOOKING, {
-        id: id,
-        office_id: selectedOffice,
-        room_id: selectedRoom,
-        meeting_title: title,
-        agenda: agenda,
-        start_time: startTime,
-        end_time: endTime,
-        no_of_participants: chairno,
-        chaired_with: chairWith,
-      })
+      .post(URL + UPDATE_BOOKING, formData)
       .then((res) => {
         console.log(res);
         props.history.push("/booking-list");
@@ -97,6 +91,29 @@ export default function UpdateBooking(props) {
         Helper.alertMessage("error", res);
       });
   }
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   axios
+  //     .post(URL + UPDATE_BOOKING, {
+  //       id: id,
+  //       office_id: selectedOffice,
+  //       room_id: selectedRoom,
+  //       meeting_title: title,
+  //       agenda: agenda,
+  //       start_time: startTime,
+  //       end_time: endTime,
+  //       no_of_participants: chairno,
+  //       chaired_with: chairWith,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       props.history.push("/booking-list");
+  //       Helper.alertMessage("success", "Successfully Updated");
+  //     })
+  //     .catch(function (res) {
+  //       Helper.alertMessage("error", res);
+  //     });
+  // }
   return (
     <div>
       <>
@@ -113,11 +130,11 @@ export default function UpdateBooking(props) {
                   </label>
                   <div className="col-sm-10">
                     <input
-                      // value={title}
+                      name="meeting_title"
                       value={formData.meeting_title}
                       type="text"
                       className="form-control"
-                      // onChange={(e) => setTitle(e.target.value)}
+                      onChange={onChangeInput}
                     />
                   </div>
                 </div>
@@ -128,17 +145,20 @@ export default function UpdateBooking(props) {
                   </label>
                   <div className="col-sm-10">
                     <select
-                      name="select"
+                      name="office_id"
                       className="form-control"
-                      value={selectedOffice}
-                      // value={formData.office_id}
-                      onChange={(e) => setSelectedOffice(e.target.value)}
+                      value={formData.office_id}
+                      onChange={onChangeInput}
                     >
-                      <option value={formData.office_id}>
-                        {formData.office.title}*
-                      </option>
+                      <option>{formData.office.title}</option>
                       {offices.map((item, index) => {
-                        return <option value={item.id}>{item.title}</option>;
+                        if (formData.office.title !== item.title) {
+                          return (
+                            <option key={item.id} value={item.id}>
+                              {item.title}
+                            </option>
+                          );
+                        }
                       })}
                     </select>
                   </div>
@@ -149,25 +169,24 @@ export default function UpdateBooking(props) {
                   </label>
                   <div className="col-sm-10">
                     <select
-                      name="select"
+                      name="room_id"
                       className="form-control"
-                      value={selectedRoom}
-                      // value={formData.room_id}
-                      onChange={(e) => setSelectedRoom(e.target.value)}
+                      // value={selectedRoom}
+                      value={formData.room_id}
+                      onChange={onChangeInput}
                     >
-                      <option value={formData.room_id}>
-                        {formData.room.title}*
-                      </option>
+                      <option>{formData.room.title}</option>
 
                       {offices.map((office, index) => {
-                        if (office.id == selectedOffice)
+                        if (office.id == formData.office_id)
                           return office.rooms.map((room, index) => {
-                            // if (room.title !== formData.room.title) {
-                            return (
-                              <option value={room.id}>
-                                {room.title}(Max Capacity: {room.capacity})
-                              </option>
-                            );
+                            if (room.title !== formData.room.title) {
+                              return (
+                                <option key={room.id} value={room.id}>
+                                  {room.title}(Max Capacity: {room.capacity})
+                                </option>
+                              );
+                            }
                           });
                       })}
                     </select>
@@ -182,9 +201,9 @@ export default function UpdateBooking(props) {
                       rows="5"
                       cols="5"
                       class="form-control"
-                      value={agenda}
-                      // value={formData.agenda}
-                      onChange={(e) => setAgenda(e.target.value)}
+                      name="agenda"
+                      value={formData.agenda}
+                      onChange={onChangeInput}
                     ></textarea>
                   </div>
                 </div>
@@ -196,10 +215,10 @@ export default function UpdateBooking(props) {
                   <div className="col-sm-10">
                     <input
                       type="number"
-                      value={chairno}
-                      // value={formData.no_of_participants}
+                      name="no_of_participants"
+                      value={formData.no_of_participants}
                       className="form-control"
-                      onChange={(e) => setChairno(e.target.value)}
+                      onChange={onChangeInput}
                     />
                   </div>
                 </div>
@@ -208,34 +227,32 @@ export default function UpdateBooking(props) {
                   <label className="col-sm-2 col-form-label">
                     Starting Time & Date
                   </label>
-                  <div className="col-sm-10">
+                  {console.log(startTime)}
+                  {/* <div className="col-sm-10">
                     <DatePicker
                       selected={startTime}
-                      value={startTime}
-                      // value={formData.start_time}
                       onChange={(date) => setStartTime(date)}
                       showTimeSelect
                       dateFormat="MMMM d, yyyy h:mm aa"
                       className="form-control"
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="form-group row">
                   <label className="col-sm-2 col-form-label">
                     Ending Time & Date
                   </label>
-                  <div className="col-sm-10">
+                  {console.log(endTime)}
+                  {/* <div className="col-sm-10">
                     <DatePicker
                       selected={endTime}
-                      value={endTime}
-                      // value={formData.end_time}
                       onChange={(date) => setEndTime(date)}
                       showTimeSelect
                       dateFormat="MMMM d, yyyy h:mm aa"
                       className="form-control"
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="form-group row">
@@ -244,19 +261,22 @@ export default function UpdateBooking(props) {
                     <input
                       type="text"
                       className="form-control"
-                      value={chairWith}
-                      // value={formData.chaired_with}
-                      onChange={(e) => setChairWith(e.target.value)}
+                      name="chaired_with"
+                      value={formData.chaired_with}
+                      onChange={onChangeInput}
                     />
                   </div>
                 </div>
-                <div className="form-group row">
+                <div className="form-group row ">
                   <label className="col-sm-2 col-form-label"></label>
+
                   <div className="col-sm-10">
                     <button
                       type="submit"
                       className="btn btn-primary waves-effect waves-light"
                     >
+                      {console.log(endTime)}
+                      {console.log(startTime)}
                       Update
                     </button>
                     <Link

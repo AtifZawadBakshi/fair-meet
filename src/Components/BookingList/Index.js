@@ -79,11 +79,7 @@ export default function Test() {
       });
   }
   if (loading) {
-    return (
-      <section className="section loading">
-        <Loader />
-      </section>
-    );
+    return <section className="section loading">{/* <Loader /> */}</section>;
   }
   return (
     <>

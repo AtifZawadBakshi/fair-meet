@@ -7,10 +7,10 @@ export default function Sidebar(props) {
   return (
     <nav className="pcoded-navbar">
       <div className="sidebar_toggle">
-        <Link to="/dashboard" className="icon-close icons"></Link>
+        <Link to="/home" className="icon-close icons"></Link>
       </div>
       <div className="pcoded-inner-navbar main-menu">
-        <div className="">
+        <div style={{ marginTop: "16px" }}>
           <div className="main-menu-header">
             <img
               className="img-80 img-radius"
