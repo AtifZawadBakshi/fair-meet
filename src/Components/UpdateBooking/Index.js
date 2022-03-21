@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.js";
 import {
   URL,
   GET_BOOKING,
@@ -24,8 +24,8 @@ export default function UpdateBooking(props) {
   // let [agenda, setAgenda] = useState("");
   // let [chairWith, setChairWith] = useState("");
   // let [chairno, setChairno] = useState(0);
-  let [endTime, setEndTime] = useState(null);
-  let [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [startTime, setStartTime] = useState(null);
   // let [selectedOffice, setSelectedOffice] = useState(0);
   // let [selectedRoom, setSelectedRoom] = useState(0);
 
@@ -59,8 +59,24 @@ export default function UpdateBooking(props) {
         // setAgenda(response.data.data.agenda);
         // setChairWith(response.data.data.chaired_with);
         // setChairno(response.data.data.no_of_participants);
-        setEndTime(response.data.data.start_time);
-        setStartTime(response.data.data.end_time);
+
+        {
+          console.log(
+            moment(response.data.data.start_time).format("MMMM D, yyyy h:mm A")
+          );
+        }
+        {
+          console.log(
+            moment(response.data.data.end_time).format("MMMM D, yyyy h:mm A")
+          );
+        }
+
+        setStartTime(
+          moment(response.data.data.start_time).format("MMMM D, yyyy h:mm A")
+        );
+        setEndTime(
+          moment(response.data.data.end_time).format("MMMM D, yyyy h:mm A")
+        );
         // setSelectedOffice(response.data.data.office_id);
         // setSelectedRoom(response.data.data.room_id);
         setLoading(false);
@@ -85,8 +101,8 @@ export default function UpdateBooking(props) {
   function handleSubmit(e) {
     e.preventDefault();
     setFormData({ ...formData, ["id"]: id });
-    // setFormData({ ...formData, ["start_time"]: startTime });
-    // setFormData({ ...formData, ["end_time"]: endTime });
+    setFormData({ ...formData, ["start_time"]: startTime });
+    setFormData({ ...formData, ["end_time"]: endTime });
     axios
       .post(URL + UPDATE_BOOKING, formData)
       .then((res) => {
@@ -132,10 +148,10 @@ export default function UpdateBooking(props) {
             <div className="card-block">
               <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">
-                    Meeting Title
+                  <label className="col-sm-3 col-form-label">
+                    Meeting Title<span style={{ color: "red" }}>*</span>
                   </label>
-                  <div className="col-sm-10">
+                  <div className="col-sm-9">
                     <input
                       name="meeting_title"
                       value={formData.meeting_title}
@@ -147,10 +163,10 @@ export default function UpdateBooking(props) {
                 </div>
 
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">
-                    Select Office
+                  <label className="col-sm-3 col-form-label">
+                    Select Office<span style={{ color: "red" }}>*</span>
                   </label>
-                  <div className="col-sm-10">
+                  <div className="col-sm-9">
                     <select
                       name="office_id"
                       className="form-control"
@@ -171,10 +187,10 @@ export default function UpdateBooking(props) {
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">
-                    Select Meeting Room
+                  <label className="col-sm-3 col-form-label">
+                    Select Meeting Room<span style={{ color: "red" }}>*</span>
                   </label>
-                  <div className="col-sm-10">
+                  <div className="col-sm-9">
                     <select
                       name="room_id"
                       className="form-control"
@@ -200,10 +216,10 @@ export default function UpdateBooking(props) {
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">
-                    Meeting Agenda
+                  <label className="col-sm-3 col-form-label">
+                    Meeting Agenda<span style={{ color: "red" }}>*</span>
                   </label>
-                  <div className="col-sm-10">
+                  <div className="col-sm-9">
                     <textarea
                       rows="5"
                       cols="5"
@@ -216,10 +232,11 @@ export default function UpdateBooking(props) {
                 </div>
 
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">
+                  <label className="col-sm-3 col-form-label">
                     Number of Participants
+                    <span style={{ color: "red" }}>*</span>
                   </label>
-                  <div className="col-sm-10">
+                  <div className="col-sm-9">
                     <input
                       type="number"
                       name="no_of_participants"
@@ -231,42 +248,44 @@ export default function UpdateBooking(props) {
                 </div>
 
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">
-                    Starting Time & Date
+                  <label className="col-sm-3 col-form-label">
+                    Starting Time & Date<span style={{ color: "red" }}>*</span>
                   </label>
-                  {console.log(formData.start_time)}
-                  <div className="col-sm-10">
+                  {/* {console.log(formData.start_time)} */}
+                  {console.log(startTime)}
+                  <div className="col-sm-9">
                     <DatePicker
-                      value={formData.start_time}
-                      name="start_time"
+                      value={startTime}
+                      onChange={(date) => setStartTime(date)}
                       showTimeSelect
-                      dateFormat="MMMM d, yyyy h:mm aa"
+                      dateFormat="MMMM D, yyyy h:mm A"
                       className="form-control"
-                      onChange={onChangeInput}
                     />
                   </div>
                 </div>
 
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">
-                    Ending Time & Date
+                  <label className="col-sm-3 col-form-label">
+                    Ending Time & Date<span style={{ color: "red" }}>*</span>
                   </label>
-                  {console.log(formData.end_time)}
-                  <div className="col-sm-10">
+                  {/* {console.log(formData.end_time)} */}
+                  {console.log(endTime)}
+                  <div className="col-sm-9">
                     <DatePicker
-                      value={formData.start_time}
-                      name="end_time"
+                      value={endTime}
+                      onChange={(date) => setEndTime(date)}
                       showTimeSelect
-                      dateFormat="MMMM d, yyyy h:mm aa"
+                      dateFormat="MMMM D, yyyy h:mm A"
                       className="form-control"
-                      onChange={onChangeInput}
                     />
                   </div>
                 </div>
 
                 <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">Chair With</label>
-                  <div className="col-sm-10">
+                  <label className="col-sm-3 col-form-label">
+                    Chair With<span style={{ color: "red" }}>*</span>
+                  </label>
+                  <div className="col-sm-9">
                     <input
                       type="text"
                       className="form-control"
@@ -277,16 +296,14 @@ export default function UpdateBooking(props) {
                   </div>
                 </div>
                 <div className="form-group row ">
-                  <label className="col-sm-2 col-form-label"></label>
+                  <label className="col-sm-3 col-form-label"></label>
 
-                  <div className="col-sm-10">
+                  <div className="col-sm-9">
                     <button
                       type="submit"
                       style={{ margin: "5px" }}
                       className="btn btn-primary waves-effect waves-light"
                     >
-                      {console.log(endTime)}
-                      {console.log(startTime)}
                       Update
                     </button>
                     <Link

@@ -17,6 +17,7 @@ import {
 export default function Test() {
   let [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [offices, setOffices] = useState([]);
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -28,21 +29,8 @@ export default function Test() {
         return Promise.reject(error);
       }
     );
-    axios
-      .get(URL + BOOKING_LIST)
-      .then((response) => {
-        setFormData(response.data.data.booking);
-        setLoading(false);
-        console.log(response.data.data.booking);
-      })
-      .catch(function (error) {
-        Helper.alertMessage("error", "BOOKING_LIST API not working!");
-      });
+    BookingList();
   }, []);
-
-  const onChangeInput = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   function BookingList() {
     axios
@@ -52,19 +40,6 @@ export default function Test() {
         setLoading(false);
       })
       .catch(function (error) {
-        Helper.alertMessage("error", "BOOKING_LIST API not working!");
-      });
-  }
-
-  function editItem(id) {
-    axios
-      .get(URL + GET_BOOKING + "/" + id)
-      .then((response) => {
-        // setFormData(response.data.data);
-        console.log(response.data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
         Helper.alertMessage("error", error);
       });
   }
@@ -93,18 +68,26 @@ export default function Test() {
       <div className="pcoded-inner-content">
         <div className="card">
           <div className="card-header">
-            <h5>Update Bookings </h5>
+            <h5>Update Bookings</h5>
           </div>
           <div className="card-block">
             <div className="card-body">
-              <div className="row">
-                <i class="bi bi-search"></i>
+              <div className="mb-4 row">
                 <div className="col-md-4 text-end pb-2">
                   <input
                     type="search"
                     id="searchInput"
                     onKeyUp={Helper.tableSearch}
-                    placeholder="Search Here"
+                    placeholder="Search Anything"
+                    className="form-control"
+                  />
+                </div>
+                <div className="col-md-4 text-end pb-2">
+                  <input
+                    type="search"
+                    id="searchInput"
+                    onKeyUp={Helper.tableSearch}
+                    placeholder="Search Anything"
                     className="form-control"
                   />
                 </div>
@@ -161,9 +144,9 @@ export default function Test() {
                   </tbody>
                 </table>
               </div>
-              <Stack spacing={2}>
+              {/* <Stack spacing={2}>
                 <Pagination count={10} color="primary" />
-              </Stack>
+              </Stack> */}
             </div>
           </div>
         </div>
