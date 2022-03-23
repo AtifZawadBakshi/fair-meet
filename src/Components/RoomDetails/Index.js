@@ -5,14 +5,17 @@ import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import axios from "axios";
 import moment from "moment";
+import LiveCheck from "./LiveCheck";
 
 export default function RoomDetails(props) {
   const { id } = props.match.params;
   const [roomName, setRoomName] = useState("");
   const [officeName, setOfficeName] = useState("");
   const [meetings, setMeetings] = useState([]);
+  // const [live, setLive] = useState(false);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
+  let currentTime = moment().format("hh:mm:ss");
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -31,6 +34,7 @@ export default function RoomDetails(props) {
         setRoomName(response.data.data.room_details.title);
         setOfficeName(response.data.data.room_details.office.title);
         setLoading(false);
+        console.log(currentTime);
       })
       .catch((error) => {
         <section className="section loading">
@@ -91,52 +95,75 @@ export default function RoomDetails(props) {
                       <div className="card table-card">
                         <div className="card-header">
                           <div className="display-inline-block">
-                            <h5 className="m-b-0">{meeting.meeting_title}</h5>
+                            <h5 className="m-b-0" style={{ fontSize: "20px" }}>
+                              {meeting.meeting_title}
+                            </h5>
                           </div>
+                          {currentTime >= meeting.start_time.split(" ")[1] &&
+                            currentTime <= meeting.end_time.split(" ")[1] && (
+                              <LiveCheck />
+                            )}
+                          {currentTime < meeting.start_time.split(" ")[1] && (
+                            <button className="btn btn-primary btn-sm me-1 ">
+                              Upcoming
+                            </button>
+                          )}
                         </div>
 
                         <div className="card-block">
-                          <div className="table-responsive">
-                            <table className="table table-hover m-b-0 without-header">
-                              <tbody>
-                                <tr>
-                                  <td>
-                                    <div className="d-inline-block align-middle">
-                                      <div className="d-inline-block">
-                                        <h6>Agenda : {meeting.agenda}</h6>
-                                        <p className="text-muted m-b-0">
-                                          Chaired with : {meeting.chaired_with}
-                                        </p>
-
-                                        <p className="text-muted m-b-0">
-                                          Total Participants:
-                                          {meeting.no_of_participants}
-                                        </p>
-                                        <p className="text-muted m-b-0">
-                                          Date:{" "}
-                                          {moment(meeting.start_time)
-                                            .add(24, "hours")
-                                            .format("LL")}
-                                        </p>
-                                        <p className="text-muted m-b-0">
-                                          Start Time:{" "}
-                                          {moment(meeting.start_time)
-                                            .add(24, "hours")
-                                            .format("h:mm a")}
-                                        </p>
-                                        <p className="text-muted m-b-0">
-                                          End Time:{" "}
-                                          {moment(meeting.end_time)
-                                            .add(24, "hours")
-                                            .format("h:mm a")}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                          <table
+                            className="table table-border"
+                            style={{ width: "100%" }}
+                          >
+                            <thead>
+                              <tr>
+                                <th>Date</th>
+                                <th>
+                                  {": "}
+                                  {moment(meeting.start_time).format("LL")}
+                                </th>
+                              </tr>
+                              <tr>
+                                <th>Start Time</th>
+                                <th>
+                                  {": "}
+                                  {moment(meeting.start_time)
+                                    .add(24, "hours")
+                                    .format("h:mm a")}
+                                </th>
+                              </tr>
+                              <tr>
+                                <th>End Time</th>
+                                <th>
+                                  {": "}
+                                  {moment(meeting.end_time)
+                                    .add(24, "hours")
+                                    .format("h:mm a")}
+                                </th>
+                              </tr>
+                              <tr>
+                                <th>Participants No</th>
+                                <th>
+                                  {": "}
+                                  {meeting.no_of_participants}
+                                </th>
+                              </tr>
+                              <tr>
+                                <th>Charied With:</th>
+                                <th>
+                                  {": "}
+                                  {meeting.chaired_with}
+                                </th>
+                              </tr>
+                              <tr>
+                                <th>Agenda</th>
+                                <th>
+                                  {": "}
+                                  {meeting.agenda}
+                                </th>
+                              </tr>
+                            </thead>
+                          </table>
                         </div>
                       </div>
                     </div>

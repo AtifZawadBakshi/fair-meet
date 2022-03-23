@@ -82,15 +82,6 @@ export default function Test() {
                     className="form-control"
                   />
                 </div>
-                <div className="col-md-4 text-end pb-2">
-                  <input
-                    type="search"
-                    id="searchInput"
-                    onKeyUp={Helper.tableSearch}
-                    placeholder="Search Anything"
-                    className="form-control"
-                  />
-                </div>
               </div>
               <div className="table-responsive">
                 <table id="myTable" className="table table-striped">

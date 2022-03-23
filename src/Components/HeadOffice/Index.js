@@ -59,7 +59,7 @@ export default function HeadOffice() {
                       <div className="card-header">
                         <div className="display-inline-block">
                           <h5 className="m-b-0">{room.title}</h5>
-                          <h6 className="m-b-0">Room ID: {room.id}</h6>
+                          <p className="m-b-0">Room ID: {room.id}</p>
                           <p className="m-b-0">Capacity: {room.capacity}</p>
                         </div>
 

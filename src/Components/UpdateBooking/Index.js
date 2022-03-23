@@ -247,11 +247,11 @@ export default function UpdateBooking(props) {
                   </div>
                 </div>
 
-                <div className="form-group row">
+                {/* <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Starting Time & Date<span style={{ color: "red" }}>*</span>
                   </label>
-                  {/* {console.log(formData.start_time)} */}
+                  {console.log(formData.start_time)}
                   {console.log(startTime)}
                   <div className="col-sm-9">
                     <DatePicker
@@ -262,13 +262,13 @@ export default function UpdateBooking(props) {
                       className="form-control"
                     />
                   </div>
-                </div>
-
+                </div> */}
+                {/* 
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Ending Time & Date<span style={{ color: "red" }}>*</span>
                   </label>
-                  {/* {console.log(formData.end_time)} */}
+                  {console.log(formData.end_time)}
                   {console.log(endTime)}
                   <div className="col-sm-9">
                     <DatePicker
@@ -279,7 +279,7 @@ export default function UpdateBooking(props) {
                       className="form-control"
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">

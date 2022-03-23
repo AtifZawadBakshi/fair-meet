@@ -6,13 +6,14 @@ import { URL, BOOKING_LIST } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import HeaderPage from "./HeaderPage";
-import dateFormat from "dateformat";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Autograph() {
   const [office, setOffice] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [schedule, setSchedule] = useState(null);
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -32,10 +33,13 @@ export default function Autograph() {
         setLoading(false);
       })
       .catch(function (error) {
-        Helper.alertMessage("error", "BOOKING_LIST API not working!");
+        Helper.alertMessage("error", error);
       });
   }, []);
-
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(schedule);
+  }
   if (loading) {
     return (
       <section className="section loading">
@@ -47,10 +51,29 @@ export default function Autograph() {
     <>
       <HeaderPage />
 
-      <div className="container-fluid">
+      <div className="container-fluid  mt-2">
         <div className="card">
           <div className="card-body">
             <div className="row">
+              {/* <div className="form-group row">
+                <label className="col-sm-2 col-form-label">Date search: </label>
+                <div className="col-sm-3">
+                  <DatePicker
+                    selected={schedule}
+                    onChange={(date) => setSchedule(date)}
+                    dateFormat="MMMM d, yyyy"
+                    className="form-control"
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-primary waves-effect waves-light col-sm-2 "
+                    style={{ padding: "1.5px 4px" }}
+                    onClick={(e) => handleSubmit(e)}
+                  >
+                    <i className="fa fa-search"></i> Search
+                  </button>
+                </div>
+              </div> */}
               {office.rooms.map((room, index) => {
                 return (
                   <div
@@ -62,7 +85,7 @@ export default function Autograph() {
                       <div className="card-header">
                         <div className="display-inline-block">
                           <h5 className="m-b-0">{room.title}</h5>
-                          <h6 className="m-b-0">Room ID: {room.id}</h6>
+                          <p className="m-b-0">Room ID: {room.id}</p>
                           <p className="m-b-0">Capacity: {room.capacity}</p>
                         </div>
 
@@ -76,7 +99,6 @@ export default function Autograph() {
                           </Link>
                         </div>
                       </div>
-
                       <div className="card-block">
                         <div className="table-responsive">
                           <table className="table table-hover m-b-0 without-header">
