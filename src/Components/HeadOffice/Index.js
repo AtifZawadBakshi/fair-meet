@@ -2,14 +2,17 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { URL, BOOKING_LIST } from "../../Axios/Api";
+import { URL, BOOKING_LIST, SEARCH_BOOKING } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import HeaderPage from "./HeaderPage";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 export default function HeadOffice() {
   const [office, setOffice] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [schedule, setSchedule] = useState(null);
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -32,7 +35,21 @@ export default function HeadOffice() {
         Helper.alertMessage("error", "BOOKING_LIST API not working!");
       });
   }, []);
-
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(schedule);
+    axios
+      .post(URL + SEARCH_BOOKING, {
+        date: schedule,
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setBookings(res.data.data);
+      })
+      .catch(function (err) {
+        Helper.alertMessage("error", err);
+      });
+  }
   if (loading) {
     return (
       <section className="section loading">
@@ -47,6 +64,27 @@ export default function HeadOffice() {
       <div className="container-fluid">
         <div className="card">
           <div className="card-body">
+            <div className="form-group row mt-3">
+              <div className="display-inline-block col-6 col-md-4 col-lg-3">
+                <div className="form-control" style={{ display: "flex" }}>
+                  <i className="fa fa-calendar mt-2 mr-2 "></i>
+                  <DatePicker
+                    selected={schedule}
+                    onChange={(date) => setSchedule(date)}
+                    dateFormat="MMMM d, yyyy"
+                    className="form-control"
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-primary waves-effect waves-light me-6"
+                    onClick={(e) => handleSubmit(e)}
+                    style={{ padding: "0px 8px", margin: "1px 2px" }}
+                  >
+                    <i className="fa fa-search" />
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className="row">
               {office.rooms.map((room, index) => {
                 return (

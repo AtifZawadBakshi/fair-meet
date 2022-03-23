@@ -67,7 +67,7 @@ export default function CrateBooking(props) {
         Helper.alertMessage("success", "Successfully Added");
       })
       .catch(function (res) {
-        Helper.alertMessage("error", "Something went wrong!");
+        Helper.alertMessage("error", res);
       });
   }
 

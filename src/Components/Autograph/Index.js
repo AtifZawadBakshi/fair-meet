@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { URL, BOOKING_LIST } from "../../Axios/Api";
+import { URL, BOOKING_LIST, SEARCH_BOOKING } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import HeaderPage from "./HeaderPage";
@@ -39,6 +39,17 @@ export default function Autograph() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(schedule);
+    axios
+      .post(URL + SEARCH_BOOKING, {
+        date: schedule,
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setBookings(res.data.data);
+      })
+      .catch(function (err) {
+        Helper.alertMessage("error", err);
+      });
   }
   if (loading) {
     return (
@@ -51,25 +62,13 @@ export default function Autograph() {
     <>
       <HeaderPage />
 
-      <div className="container-fluid  mt-2">
+      <div className="container-fluid ">
         <div className="card">
-          {/* <div className="card-block">
-            <section className="section">
-              <label className="col-sm-2 col-form-label">Date search: </label>
-              <div className="btn-container">
-                <DatePicker
-                  selected={schedule}
-                  onChange={(date) => setSchedule(date)}
-                  dateFormat="MMMM d, yyyy"
-                />
-              </div>
-            </section>
-          </div> */}
           <div className="card-body">
-            <div className="row">
-              {/* <div className="form-group row">
-                <label className="col-sm-2 col-form-label">Date search: </label>
-                <div className="col-sm-3">
+            <div className="form-group row mt-3">
+              <div className="display-inline-block col-6 col-md-4 col-lg-3">
+                <div className="form-control" style={{ display: "flex" }}>
+                  <i className="fa fa-calendar mt-2 mr-2 "></i>
                   <DatePicker
                     selected={schedule}
                     onChange={(date) => setSchedule(date)}
@@ -78,14 +77,16 @@ export default function Autograph() {
                   />
                   <button
                     type="submit"
-                    className="btn btn-primary waves-effect waves-light col-sm-2 "
-                    style={{ padding: "1.5px 4px" }}
+                    className="btn btn-primary waves-effect waves-light me-6"
                     onClick={(e) => handleSubmit(e)}
+                    style={{ padding: "0px 8px", margin: "1px 2px" }}
                   >
-                    <i className="fa fa-search"></i> 
+                    <i className="fa fa-search" />
                   </button>
                 </div>
-              </div> */}
+              </div>
+            </div>
+            <div className="row">
               {office.rooms.map((room, index) => {
                 return (
                   <div
@@ -140,7 +141,7 @@ export default function Autograph() {
                                             <p className="text-muted m-b-0">
                                               Date:{" "}
                                               {moment(booking.start_time)
-                                                .add(24, "hours")
+                                                // .add(24, "hours")
                                                 .format("LL")}
                                             </p>
                                           </div>
@@ -151,13 +152,13 @@ export default function Autograph() {
                                         <p className="text-muted m-b-0">
                                           Start Time:{" "}
                                           {moment(booking.start_time)
-                                            .add(24, "hours")
+                                            // .add(24, "hours")
                                             .format("h:mm a")}
                                         </p>
                                         <p className="text-muted m-b-0">
                                           End Time:{" "}
                                           {moment(booking.end_time)
-                                            .add(24, "hours")
+                                            // .add(24, "hours")
                                             .format("h:mm a")}
                                         </p>
                                       </td>
