@@ -53,7 +53,7 @@ export default function Autograph() {
 
       <div className="container-fluid  mt-2">
         <div className="card">
-          <div className="card-block">
+          {/* <div className="card-block">
             <section className="section">
               <label className="col-sm-2 col-form-label">Date search: </label>
               <div className="btn-container">
@@ -64,7 +64,7 @@ export default function Autograph() {
                 />
               </div>
             </section>
-          </div>
+          </div> */}
           <div className="card-body">
             <div className="row">
               {/* <div className="form-group row">

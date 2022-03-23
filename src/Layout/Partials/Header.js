@@ -6,7 +6,10 @@ function Header(props) {
   const user = props.userDetails;
   console.log(user);
   return (
-    <nav className="navbar header-navbar pcoded-header">
+    <nav
+      className="navbar header-navbar pcoded-header"
+      style={{ backgroundColor: "black" }}
+    >
       <div className="navbar-wrapper">
         <div className="navbar-logo">
           <a
