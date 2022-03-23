@@ -15,7 +15,7 @@ export default function RoomDetails(props) {
   // const [live, setLive] = useState(false);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  let currentTime = moment().format("hh:mm:ss");
+  let currentTime = moment().format("HH:mm:ss");
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -99,6 +99,9 @@ export default function RoomDetails(props) {
                               {meeting.meeting_title}
                             </h5>
                           </div>
+                          {console.log(currentTime)}
+                          {console.log(meeting.start_time.split(" ")[1])}
+                          {console.log(meeting.end_time.split(" ")[1])}
                           {currentTime >= meeting.start_time.split(" ")[1] &&
                             currentTime <= meeting.end_time.split(" ")[1] && (
                               <LiveCheck />

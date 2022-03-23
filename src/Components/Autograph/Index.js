@@ -53,6 +53,18 @@ export default function Autograph() {
 
       <div className="container-fluid  mt-2">
         <div className="card">
+          <div className="card-block">
+            <section className="section">
+              <label className="col-sm-2 col-form-label">Date search: </label>
+              <div className="btn-container">
+                <DatePicker
+                  selected={schedule}
+                  onChange={(date) => setSchedule(date)}
+                  dateFormat="MMMM d, yyyy"
+                />
+              </div>
+            </section>
+          </div>
           <div className="card-body">
             <div className="row">
               {/* <div className="form-group row">
@@ -70,7 +82,7 @@ export default function Autograph() {
                     style={{ padding: "1.5px 4px" }}
                     onClick={(e) => handleSubmit(e)}
                   >
-                    <i className="fa fa-search"></i> Search
+                    <i className="fa fa-search"></i> 
                   </button>
                 </div>
               </div> */}
