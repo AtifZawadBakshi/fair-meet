@@ -145,7 +145,7 @@ export default function RoomDetails(props) {
                                 </th>
                               </tr>
                               <tr>
-                                <th>Participants No</th>
+                                <th>No. of Participants</th>
                                 <th>
                                   {": "}
                                   {meeting.no_of_participants}
