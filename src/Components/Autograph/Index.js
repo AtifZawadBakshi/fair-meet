@@ -13,7 +13,9 @@ export default function Autograph() {
   const [office, setOffice] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [schedule, setSchedule] = useState(null);
+  const [schedule, setSchedule] = useState();
+  const today = moment().format("MMMM D, yyyy");
+
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -25,11 +27,26 @@ export default function Autograph() {
         return Promise.reject(error);
       }
     );
+
+    axios
+      .post(URL + SEARCH_BOOKING, {
+        date: today,
+      })
+
+      .then((res) => {
+        console.log(today);
+        console.log(res.data.data);
+        setBookings(res.data.data);
+      })
+      .catch(function (err) {
+        Helper.alertMessage("error", err);
+      });
     axios
       .get(URL + BOOKING_LIST)
       .then((response) => {
         setOffice(response.data.data.offices[0]);
-        setBookings(response.data.data.booking);
+        console.log(response.data.data.offices[0]);
+
         setLoading(false);
       })
       .catch(function (error) {
@@ -38,7 +55,7 @@ export default function Autograph() {
   }, []);
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(schedule);
+
     axios
       .post(URL + SEARCH_BOOKING, {
         date: schedule,
@@ -62,11 +79,11 @@ export default function Autograph() {
     <>
       <HeaderPage />
 
-      <div className="container-fluid ">
+      <div className="container-fluid mt-2 ">
         <div className="card">
           <div className="card-body">
             <div className="form-group row mt-3">
-              <div className="display-inline-block col-6 col-md-4 col-lg-3">
+              <div className="display-inline-block col-8 col-md-4 col-lg-4">
                 <div className="form-control" style={{ display: "flex" }}>
                   <i className="fa fa-calendar mt-2 mr-2 "></i>
                   <DatePicker
@@ -130,15 +147,24 @@ export default function Autograph() {
                                             {/* <p className="text-muted m-b-0">
                                               Agenda : {booking.agenda}
                                             </p> */}
-                                            <p className="text-muted m-b-0">
+                                            <p
+                                              key={5}
+                                              className="text-muted m-b-0"
+                                            >
                                               Chaired with :
                                               {booking.chaired_with}
                                             </p>
-                                            <p className="text-muted m-b-0">
+                                            <p
+                                              key={4}
+                                              className="text-muted m-b-0"
+                                            >
                                               Total Participants:
                                               {booking.no_of_participants}
                                             </p>
-                                            <p className="text-muted m-b-0">
+                                            <p
+                                              key={3}
+                                              className="text-muted m-b-0"
+                                            >
                                               Date:{" "}
                                               {moment(booking.start_time)
                                                 // .add(24, "hours")
@@ -149,13 +175,13 @@ export default function Autograph() {
                                       </td>
 
                                       <td className="text-right">
-                                        <p className="text-muted m-b-0">
+                                        <p key={2} className="text-muted m-b-0">
                                           Start Time:{" "}
                                           {moment(booking.start_time)
                                             // .add(24, "hours")
                                             .format("h:mm a")}
                                         </p>
-                                        <p className="text-muted m-b-0">
+                                        <p key={1} className="text-muted m-b-0">
                                           End Time:{" "}
                                           {moment(booking.end_time)
                                             // .add(24, "hours")

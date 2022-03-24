@@ -13,6 +13,7 @@ export default function HeadOffice() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [schedule, setSchedule] = useState(null);
+  const today = moment().format("MMMM D, yyyy");
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -25,14 +26,25 @@ export default function HeadOffice() {
       }
     );
     axios
+      .post(URL + SEARCH_BOOKING, {
+        date: today,
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setBookings(res.data.data);
+      })
+      .catch(function (err) {
+        Helper.alertMessage("error", err);
+      });
+    axios
       .get(URL + BOOKING_LIST)
       .then((response) => {
         setOffice(response.data.data.offices[1]);
-        setBookings(response.data.data.booking);
+
         setLoading(false);
       })
       .catch(function (error) {
-        Helper.alertMessage("error", "BOOKING_LIST API not working!");
+        Helper.alertMessage("error", error);
       });
   }, []);
   function handleSubmit(e) {
@@ -61,7 +73,7 @@ export default function HeadOffice() {
     <>
       <HeaderPage />
 
-      <div className="container-fluid">
+      <div className="container-fluid mt-2">
         <div className="card">
           <div className="card-body">
             <div className="form-group row mt-3">
@@ -141,7 +153,7 @@ export default function HeadOffice() {
                                             <p className="text-muted m-b-0">
                                               Date:{" "}
                                               {moment(booking.start_time)
-                                                .add(24, "hours")
+                                                // .add(24, "hours")
                                                 .format("LL")}
                                             </p>
                                           </div>
@@ -152,13 +164,13 @@ export default function HeadOffice() {
                                         <p className="text-muted m-b-0">
                                           Start Time:{" "}
                                           {moment(booking.start_time)
-                                            .add(24, "hours")
+                                            // .add(24, "hours")
                                             .format("h:mm a")}
                                         </p>
                                         <p className="text-muted m-b-0">
                                           End Time:{" "}
                                           {moment(booking.end_time)
-                                            .add(24, "hours")
+                                            // .add(24, "hours")
                                             .format("h:mm a")}
                                         </p>
                                       </td>

@@ -2,14 +2,18 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { URL, BOOKING_LIST } from "../../Axios/Api";
+import { URL, BOOKING_LIST, SEARCH_BOOKING } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import HeaderPage from "./HeaderPage";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 export default function CorporateOffice() {
   const [office, setOffice] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [schedule, setSchedule] = useState(null);
+  const today = moment().format("MMMM D, yyyy");
   useEffect(() => {
     const token = sessionStorage.getItem("token") || null;
     axios.interceptors.request.use(
@@ -22,17 +26,42 @@ export default function CorporateOffice() {
       }
     );
     axios
+      .post(URL + SEARCH_BOOKING, {
+        date: today,
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setBookings(res.data.data);
+      })
+      .catch(function (err) {
+        Helper.alertMessage("error", err);
+      });
+    axios
       .get(URL + BOOKING_LIST)
       .then((response) => {
         setOffice(response.data.data.offices[2]);
-        setBookings(response.data.data.booking);
+
         setLoading(false);
       })
       .catch(function (error) {
-        Helper.alertMessage("error", "BOOKING_LIST API not working!");
+        Helper.alertMessage("error", error);
       });
   }, []);
-
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(schedule);
+    axios
+      .post(URL + SEARCH_BOOKING, {
+        date: schedule,
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setBookings(res.data.data);
+      })
+      .catch(function (err) {
+        Helper.alertMessage("error", err);
+      });
+  }
   if (loading) {
     return (
       <section className="section loading">
@@ -43,9 +72,30 @@ export default function CorporateOffice() {
   return (
     <>
       <HeaderPage />
-      <div className="container-fluid">
+      <div className="container-fluid mt-2">
         <div className="card">
           <div className="card-body">
+            <div className="form-group row mt-3">
+              <div className="display-inline-block col-6 col-md-4 col-lg-3">
+                <div className="form-control" style={{ display: "flex" }}>
+                  <i className="fa fa-calendar mt-2 mr-2 "></i>
+                  <DatePicker
+                    selected={schedule}
+                    onChange={(date) => setSchedule(date)}
+                    dateFormat="MMMM d, yyyy"
+                    className="form-control"
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-primary waves-effect waves-light me-6"
+                    onClick={(e) => handleSubmit(e)}
+                    style={{ padding: "0px 8px", margin: "1px 2px" }}
+                  >
+                    <i className="fa fa-search" />
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className="row">
               {office.rooms.map((room, index) => {
                 return (
@@ -102,7 +152,7 @@ export default function CorporateOffice() {
                                             <p className="text-muted m-b-0">
                                               Date:{" "}
                                               {moment(booking.start_time)
-                                                .add(24, "hours")
+                                                // .add(24, "hours")
                                                 .format("LL")}
                                             </p>
                                           </div>
@@ -113,13 +163,13 @@ export default function CorporateOffice() {
                                         <p className="text-muted m-b-0">
                                           Start Time:{" "}
                                           {moment(booking.start_time)
-                                            .add(24, "hours")
+                                            // .add(24, "hours")
                                             .format("h:mm a")}
                                         </p>
                                         <p className="text-muted m-b-0">
                                           End Time:{" "}
                                           {moment(booking.end_time)
-                                            .add(24, "hours")
+                                            // .add(24, "hours")
                                             .format("h:mm a")}
                                         </p>
                                       </td>

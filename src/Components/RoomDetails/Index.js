@@ -84,7 +84,7 @@ export default function RoomDetails(props) {
           </div>
         </div>
       </div>
-      <div className="container-fluid">
+      <div className="container-fluid mt-2">
         <div className="card">
           <div className="card-body">
             <div className="row">
