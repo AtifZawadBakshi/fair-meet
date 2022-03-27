@@ -64,7 +64,7 @@ export default function CrateBooking(props) {
       })
       .then((res) => {
         console.log(res);
-        props.history.push("/dashboard");
+        props.history.push("/home");
         Helper.alertMessage("success", "Successfully Added");
       })
       .catch(function (res) {

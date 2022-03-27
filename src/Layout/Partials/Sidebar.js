@@ -35,7 +35,7 @@ export default function Sidebar(props) {
                   <i className="ti-settings" />
                   Settings
                 </a> */}
-                <Link to="/logout">
+                <Link to="/logout" style={{ textDecoration: "none" }}>
                   <i className="ti-layout-sidebar-left" /> Logout
                 </Link>
               </li>
