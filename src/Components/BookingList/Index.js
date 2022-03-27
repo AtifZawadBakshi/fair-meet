@@ -19,7 +19,8 @@ export default function Test() {
   const [loading, setLoading] = useState(true);
   const [offices, setOffices] = useState([]);
   useEffect(() => {
-    const token = sessionStorage.getItem("token") || null;
+    let auth_check = JSON.parse(localStorage.getItem("user"));
+    const token = auth_check.access_token || null;
     axios.interceptors.request.use(
       (config) => {
         config.headers.authorization = `Bearer ${token}`;

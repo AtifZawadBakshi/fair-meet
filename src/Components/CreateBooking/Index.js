@@ -20,7 +20,8 @@ export default function CrateBooking(props) {
   const [selectedRoom, setSelectedRoom] = useState(0);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token") || null;
+    let auth_check = JSON.parse(localStorage.getItem("user"));
+    const token = auth_check.access_token || null;
     axios.interceptors.request.use(
       (config) => {
         config.headers.authorization = `Bearer ${token}`;
