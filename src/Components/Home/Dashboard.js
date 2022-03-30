@@ -94,16 +94,6 @@ export default function Dashboard() {
                               <p className="m-b-0">Room ID: {room.id}</p>
                               <p className="m-b-0">Capacity: {room.capacity}</p>
                             </div>
-
-                            <div className="button">
-                              <Link
-                                to={"/room-details/" + room.id}
-                                className="btn btn-primary btn-sm me-2"
-                                style={{ padding: "3px 3px", margin: "2px" }}
-                              >
-                                Details
-                              </Link>
-                            </div>
                           </div>
 
                           <div className="card-block">

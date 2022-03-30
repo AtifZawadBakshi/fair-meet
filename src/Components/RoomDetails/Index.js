@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { URL, GET_ROOM } from "../../Axios/Api";
+import { SEARCH_BOOKING, URL, GET_ROOM } from "../../Axios/Api";
 import * as Helper from "../Utility/Helper";
 import Loader from "../Utility/Loader";
 import axios from "axios";
@@ -8,7 +8,11 @@ import moment from "moment";
 import LiveCheck from "./LiveCheck";
 
 export default function RoomDetails(props) {
+  console.log(props);
+  const { date } = props.match.params;
   const { id } = props.match.params;
+  console.log(id);
+  console.log(date);
   const [roomName, setRoomName] = useState("");
   const [officeName, setOfficeName] = useState("");
   const [meetings, setMeetings] = useState([]);
@@ -16,6 +20,7 @@ export default function RoomDetails(props) {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   let currentTime = moment().format("HH:mm:ss");
+  const today = moment().format("MMMM D, yyyy");
   useEffect(() => {
     let auth_check = JSON.parse(localStorage.getItem("user"));
     const token = auth_check.access_token || null;
@@ -29,19 +34,34 @@ export default function RoomDetails(props) {
       }
     );
     axios
-      .get(URL + GET_ROOM + "/" + id)
-      .then((response) => {
-        setMeetings(response.data.data.meeting_list);
-        setRoomName(response.data.data.room_details.title);
-        setOfficeName(response.data.data.room_details.office.title);
-        setLoading(false);
-        console.log(currentTime);
+      .post(URL + SEARCH_BOOKING, {
+        room_id: id,
+        date: moment(date).format("MMMM D, yyyy"),
       })
-      .catch((error) => {
-        <section className="section loading">
-          Hurraahh!! No Meetings Today !
-        </section>;
+      .then((response) => {
+        console.log(response.data.data);
+        setMeetings(response.data.data);
+        setRoomName(response.data.data[0].room.title);
+        setOfficeName(response.data.data[0].office.title);
+        setLoading(false);
+      })
+      .catch(function (err) {
+        Helper.alertMessage("error", err);
       });
+    // axios
+    //   .get(URL + GET_ROOM + "/" + id)
+    //   .then((response) => {
+    //     setMeetings(response.data.data.meeting_list);
+    //     setRoomName(response.data.data.room_details.title);
+    //     setOfficeName(response.data.data.room_details.office.title);
+    //     setLoading(false);
+    //     console.log(currentTime);
+    //   })
+    //   .catch((error) => {
+    //     <section className="section loading">
+    //       Hurraahh!! No Meetings Today !
+    //     </section>;
+    //   });
   }, []);
 
   if (loading) {
@@ -104,14 +124,16 @@ export default function RoomDetails(props) {
                           {console.log(meeting.start_time.split(" ")[1])}
                           {console.log(meeting.end_time.split(" ")[1])}
                           {currentTime >= meeting.start_time.split(" ")[1] &&
-                            currentTime <= meeting.end_time.split(" ")[1] && (
+                            currentTime <= meeting.end_time.split(" ")[1] &&
+                            today == moment(date).format("MMMM D, yyyy") && (
                               <LiveCheck />
                             )}
-                          {currentTime < meeting.start_time.split(" ")[1] && (
-                            <button className="btn btn-primary btn-sm me-1 ">
-                              Upcoming
-                            </button>
-                          )}
+                          {currentTime < meeting.start_time.split(" ")[1] &&
+                            today == moment(date).format("MMMM D, yyyy") && (
+                              <button className="btn btn-primary btn-sm me-1 ">
+                                Upcoming
+                              </button>
+                            )}
                         </div>
 
                         <div className="card-block">

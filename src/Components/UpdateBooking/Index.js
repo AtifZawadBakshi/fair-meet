@@ -72,12 +72,8 @@ export default function UpdateBooking(props) {
           );
         }
 
-        setStartTime(
-          moment(response.data.data.start_time).format("MMMM D, yyyy h:mm A")
-        );
-        setEndTime(
-          moment(response.data.data.end_time).format("MMMM D, yyyy h:mm A")
-        );
+        setStartTime(response.data.data.start_time);
+        setEndTime(response.data.data.end_time);
         // setSelectedOffice(response.data.data.office_id);
         // setSelectedRoom(response.data.data.room_id);
         setLoading(false);
@@ -259,12 +255,11 @@ export default function UpdateBooking(props) {
                       value={startTime}
                       onChange={(date) => setStartTime(date)}
                       showTimeSelect
-                      dateFormat="MMMM D, yyyy h:mm A"
                       className="form-control"
                     />
                   </div>
-                </div> */}
-                {/* 
+                </div>
+
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Ending Time & Date<span style={{ color: "red" }}>*</span>
@@ -276,7 +271,6 @@ export default function UpdateBooking(props) {
                       value={endTime}
                       onChange={(date) => setEndTime(date)}
                       showTimeSelect
-                      dateFormat="MMMM D, yyyy h:mm A"
                       className="form-control"
                     />
                   </div>

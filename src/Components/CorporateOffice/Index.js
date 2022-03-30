@@ -12,7 +12,7 @@ export default function CorporateOffice() {
   const [office, setOffice] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [schedule, setSchedule] = useState(null);
+  const [schedule, setSchedule] = useState(new Date());
   const today = moment().format("MMMM D, yyyy");
   useEffect(() => {
     let auth_check = JSON.parse(localStorage.getItem("user"));
@@ -115,7 +115,7 @@ export default function CorporateOffice() {
 
                         <div className="button">
                           <Link
-                            to={"/room-details/" + room.id}
+                            to={"/room-details/" + room.id + "/" + schedule}
                             className="btn btn-primary btn-sm me-2"
                             style={{ padding: "3px 3px", margin: "2px" }}
                           >

@@ -13,7 +13,7 @@ export default function Autograph() {
   const [office, setOffice] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [schedule, setSchedule] = useState();
+  const [schedule, setSchedule] = useState(new Date());
   const today = moment().format("MMMM D, yyyy");
 
   useEffect(() => {
@@ -35,7 +35,8 @@ export default function Autograph() {
       })
 
       .then((res) => {
-        console.log(today);
+        console.log(moment().format("MMMM D, yyyy"));
+        // setSchedule(date);
         console.log(res.data.data);
         setBookings(res.data.data);
       })
@@ -47,7 +48,6 @@ export default function Autograph() {
       .then((response) => {
         setOffice(response.data.data.offices[0]);
         console.log(response.data.data.offices[0]);
-
         setLoading(false);
       })
       .catch(function (error) {
@@ -119,15 +119,24 @@ export default function Autograph() {
                           <p className="m-b-0">Room ID: {room.id}</p>
                           <p className="m-b-0">Capacity: {room.capacity}</p>
                         </div>
-
                         <div className="button">
-                          <Link
+                          {/* <Link
                             to={"/room-details/" + room.id}
                             className="btn btn-primary btn-sm me-2"
                             style={{ padding: "3px 3px", margin: "2px" }}
                           >
                             Details
-                          </Link>
+                          </Link> */}
+
+                          {
+                            <Link
+                              to={"/room-details/" + room.id + "/" + schedule}
+                              className="btn btn-primary btn-sm me-2"
+                              style={{ padding: "3px 3px", margin: "2px" }}
+                            >
+                              Details
+                            </Link>
+                          }
                         </div>
                       </div>
                       <div className="card-block">

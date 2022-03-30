@@ -38,7 +38,9 @@ const AppLayout = () => (
       <Route path="/head-office" component={HeadOffice} />
       <Route path="/corporate-office" component={CorporateOffice} />
       <Route path="/strategic-office" component={Autograph} />
-      <Route path="/room-details/:id" component={RoomDetails} />
+      {/* <Route path="/room-details" component={RoomDetails} /> */}
+      {/* <Route path="/room-details/:id" component={RoomDetails} /> */}
+      <Route path="/room-details/:id/:date" component={RoomDetails} />
       <Route path="/create-booking" component={CreateBooking} />
       <Route path="/booking-list" component={BookingList} />
       <Route path="/update-booking/:id" component={UpdateBooking} />
