@@ -169,10 +169,11 @@ export default function CrateBooking(props) {
                 </label>
                 <div className="col-sm-10">
                   <DatePicker
+                    minDate={new Date()}
                     selected={startTime}
                     onChange={(date) => setStartTime(date)}
                     showTimeSelect
-                    dateFormat="MMMM d, yyyy h:mm aa"
+                    dateFormat="YYYY-MM-DD hh:mm:ss"
                     className="form-control"
                   />
                 </div>
@@ -184,10 +185,11 @@ export default function CrateBooking(props) {
                 </label>
                 <div className="col-sm-10">
                   <DatePicker
+                    minDate={new Date()}
                     selected={endTime}
                     onChange={(date) => setEndTime(date)}
                     showTimeSelect
-                    dateFormat="MMMM d, yyyy h:mm aa"
+                    dateFormat="YYYY-MM-DD hh:mm:ss"
                     className="form-control"
                   />
                 </div>

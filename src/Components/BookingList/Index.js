@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Button, MyVerticallyCenteredModal } from "react-modal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import moment from "moment";
 import {
   URL,
   BOOKING_LIST,
@@ -92,6 +93,7 @@ export default function Test() {
                       <th>Meeting Title</th>
                       <th>Office Name</th>
                       <th>Room Name</th>
+                      <th>Date</th>
                       <th>Chaired With</th>
                       <th>Action</th>
                     </tr>
@@ -103,6 +105,11 @@ export default function Test() {
                         <td> {val.meeting_title}</td>
                         <td> {val.office.title}</td>
                         <td> {val.room.title}</td>
+                        <td>
+                          {" "}
+                          {moment(val.start_time).format("MMMM D, yyyy")}
+                        </td>
+
                         <td> {val.chaired_with}</td>
                         <td>
                           <Link
