@@ -144,10 +144,12 @@ export default function UpdateBooking(props) {
             </div>
             <div className="card-block">
               <form onSubmit={(e) => handleSubmit(e)}>
+                \
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Meeting Title<span style={{ color: "red" }}>*</span>
                   </label>
+
                   <div className="col-sm-9">
                     <input
                       name="meeting_title"
@@ -158,7 +160,6 @@ export default function UpdateBooking(props) {
                     />
                   </div>
                 </div>
-
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Select Office<span style={{ color: "red" }}>*</span>
@@ -170,9 +171,15 @@ export default function UpdateBooking(props) {
                       value={selectedOffice}
                       onChange={(e) => setSelectedOffice(e.target.value)}
                     >
-                      <option value="">Choose Office</option>
+                      <option value="">{formData.office.title}</option>
                       {offices.map((item, index) => {
-                        return <option value={item.id}>{item.title}</option>;
+                        if (formData.office.title !== item.title) {
+                          return (
+                            <option key={item.id} value={item.id}>
+                              {item.title}
+                            </option>
+                          );
+                        }
                       })}
                     </select>
                   </div>
@@ -188,20 +195,75 @@ export default function UpdateBooking(props) {
                       value={selectedRoom}
                       onChange={(e) => setSelectedRoom(e.target.value)}
                     >
-                      <option value="">Choose Room</option>
+                      <option value="">{formData.room.title}</option>
                       {offices.map((office, index) => {
                         if (office.id == selectedOffice)
                           return office.rooms.map((room, index) => {
-                            return (
-                              <option value={room.id}>
-                                {room.title}(Max Capacity: {room.capacity})
-                              </option>
-                            );
+                            if (room.title != formData.room.title) {
+                              return (
+                                <option key={room.id} value={room.id}>
+                                  {room.title}(Max Capacity: {room.capacity})
+                                </option>
+                              );
+                            }
                           });
                       })}
                     </select>
                   </div>
                 </div>
+                {/* <div className="form-group row">
+                  <label className="col-sm-3 col-form-label">
+                    Select Office<span style={{ color: "red" }}>*</span>
+                  </label>
+                  <div className="col-sm-9">
+                    <select
+                      name="office_id"
+                      className="form-control"
+                      value={formData.office.title}
+                      onChange={(e) => setSelectedOffice(e.target.value)}
+                    >
+                      <option>{formData.office.title}</option>
+                      {offices.map((item, index) => {
+                        if (formData.office.title !== item.title) {
+                          return (
+                            <option key={item.id} value={item.id}>
+                              {item.title}
+                            </option>
+                          );
+                        }
+                      })}
+                    </select>
+                  </div>
+                </div> */}
+                {/* <div className="form-group row">
+                  <label className="col-sm-3 col-form-label">
+                    Select Meeting Room<span style={{ color: "red" }}>*</span>
+                  </label>
+                  <div className="col-sm-9">
+                    <select
+                      name="room_id"
+                      className="form-control"
+                      // value={selectedRoom}
+                      value={selectedRoom}
+                      onChange={(e) => setSelectedRoom(e.target.value)}
+                    >
+                      <option>{formData.room.title}</option>
+
+                      {offices.map((office, index) => {
+                        if (office.id == formData.office_id)
+                          return office.rooms.map((room, index) => {
+                            if (room.title != formData.room.title) {
+                              return (
+                                <option key={room.id} value={room.id}>
+                                  {room.title}(Max Capacity: {room.capacity})
+                                </option>
+                              );
+                            }
+                          });
+                      })}
+                    </select>
+                  </div>
+                </div> */}
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Meeting Agenda<span style={{ color: "red" }}>*</span>
@@ -217,7 +279,6 @@ export default function UpdateBooking(props) {
                     ></textarea>
                   </div>
                 </div>
-
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Number of Participants
@@ -233,7 +294,6 @@ export default function UpdateBooking(props) {
                     />
                   </div>
                 </div>
-
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Starting Time & Date<span style={{ color: "red" }}>*</span>
@@ -250,7 +310,6 @@ export default function UpdateBooking(props) {
                     />
                   </div>
                 </div>
-
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Ending Time & Date<span style={{ color: "red" }}>*</span>
@@ -267,7 +326,6 @@ export default function UpdateBooking(props) {
                     />
                   </div>
                 </div>
-
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">
                     Chair With<span style={{ color: "red" }}>*</span>
