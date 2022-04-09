@@ -173,7 +173,7 @@ export default function CrateBooking(props) {
                     selected={startTime}
                     onChange={(date) => setStartTime(date)}
                     showTimeSelect
-                    dateFormat="YYYY-MM-DD hh:mm:ss"
+                    dateFormat="MMMM d, yyyy h:mm aa"
                     className="form-control"
                   />
                 </div>
@@ -189,7 +189,7 @@ export default function CrateBooking(props) {
                     selected={endTime}
                     onChange={(date) => setEndTime(date)}
                     showTimeSelect
-                    dateFormat="YYYY-MM-DD hh:mm:ss"
+                    dateFormat="MMMM d, yyyy h:mm aa"
                     className="form-control"
                   />
                 </div>
